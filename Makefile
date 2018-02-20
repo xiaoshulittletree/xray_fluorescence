@@ -855,32 +855,32 @@ src/XrayFluoPrimaryGeneratorAction.cc.s:
 	$(MAKE) -f CMakeFiles/XrayFluo.dir/build.make CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction.cc.s
 .PHONY : src/XrayFluoPrimaryGeneratorAction.cc.s
 
-src/XrayFluoPrimaryGeneratorAction_copy.o: src/XrayFluoPrimaryGeneratorAction_copy.cc.o
+src/XrayFluoPrimaryGeneratorActionOld.o: src/XrayFluoPrimaryGeneratorActionOld.cc.o
 
-.PHONY : src/XrayFluoPrimaryGeneratorAction_copy.o
+.PHONY : src/XrayFluoPrimaryGeneratorActionOld.o
 
 # target to build an object file
-src/XrayFluoPrimaryGeneratorAction_copy.cc.o:
-	$(MAKE) -f CMakeFiles/XrayFluo.dir/build.make CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction_copy.cc.o
-.PHONY : src/XrayFluoPrimaryGeneratorAction_copy.cc.o
+src/XrayFluoPrimaryGeneratorActionOld.cc.o:
+	$(MAKE) -f CMakeFiles/XrayFluo.dir/build.make CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorActionOld.cc.o
+.PHONY : src/XrayFluoPrimaryGeneratorActionOld.cc.o
 
-src/XrayFluoPrimaryGeneratorAction_copy.i: src/XrayFluoPrimaryGeneratorAction_copy.cc.i
+src/XrayFluoPrimaryGeneratorActionOld.i: src/XrayFluoPrimaryGeneratorActionOld.cc.i
 
-.PHONY : src/XrayFluoPrimaryGeneratorAction_copy.i
+.PHONY : src/XrayFluoPrimaryGeneratorActionOld.i
 
 # target to preprocess a source file
-src/XrayFluoPrimaryGeneratorAction_copy.cc.i:
-	$(MAKE) -f CMakeFiles/XrayFluo.dir/build.make CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction_copy.cc.i
-.PHONY : src/XrayFluoPrimaryGeneratorAction_copy.cc.i
+src/XrayFluoPrimaryGeneratorActionOld.cc.i:
+	$(MAKE) -f CMakeFiles/XrayFluo.dir/build.make CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorActionOld.cc.i
+.PHONY : src/XrayFluoPrimaryGeneratorActionOld.cc.i
 
-src/XrayFluoPrimaryGeneratorAction_copy.s: src/XrayFluoPrimaryGeneratorAction_copy.cc.s
+src/XrayFluoPrimaryGeneratorActionOld.s: src/XrayFluoPrimaryGeneratorActionOld.cc.s
 
-.PHONY : src/XrayFluoPrimaryGeneratorAction_copy.s
+.PHONY : src/XrayFluoPrimaryGeneratorActionOld.s
 
 # target to generate assembly for a file
-src/XrayFluoPrimaryGeneratorAction_copy.cc.s:
-	$(MAKE) -f CMakeFiles/XrayFluo.dir/build.make CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction_copy.cc.s
-.PHONY : src/XrayFluoPrimaryGeneratorAction_copy.cc.s
+src/XrayFluoPrimaryGeneratorActionOld.cc.s:
+	$(MAKE) -f CMakeFiles/XrayFluo.dir/build.make CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorActionOld.cc.s
+.PHONY : src/XrayFluoPrimaryGeneratorActionOld.cc.s
 
 src/XrayFluoPrimaryGeneratorMessenger.o: src/XrayFluoPrimaryGeneratorMessenger.cc.o
 
@@ -1268,9 +1268,9 @@ help:
 	@echo "... src/XrayFluoPrimaryGeneratorAction.o"
 	@echo "... src/XrayFluoPrimaryGeneratorAction.i"
 	@echo "... src/XrayFluoPrimaryGeneratorAction.s"
-	@echo "... src/XrayFluoPrimaryGeneratorAction_copy.o"
-	@echo "... src/XrayFluoPrimaryGeneratorAction_copy.i"
-	@echo "... src/XrayFluoPrimaryGeneratorAction_copy.s"
+	@echo "... src/XrayFluoPrimaryGeneratorActionOld.o"
+	@echo "... src/XrayFluoPrimaryGeneratorActionOld.i"
+	@echo "... src/XrayFluoPrimaryGeneratorActionOld.s"
 	@echo "... src/XrayFluoPrimaryGeneratorMessenger.o"
 	@echo "... src/XrayFluoPrimaryGeneratorMessenger.i"
 	@echo "... src/XrayFluoPrimaryGeneratorMessenger.s"

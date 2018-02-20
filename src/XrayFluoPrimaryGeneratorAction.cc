@@ -72,7 +72,7 @@ XrayFluoPrimaryGeneratorAction::XrayFluoPrimaryGeneratorAction(const
     = G4Gamma::Definition();
   particleGun->SetParticleDefinition(particle);
 	//by default here is the direction
-  particleGun->SetParticleMomentumDirection(G4ThreeVector(0.,1.,1.));//should be 0 0 1
+  particleGun->SetParticleMomentumDirection(G4ThreeVector(0.,0,1.));//should be 0 0 1
   particleGun->SetParticleEnergy(10. * keV);
 
   G4double position = -0.5*(XrayFluoDetector->GetWorldSizeZ());

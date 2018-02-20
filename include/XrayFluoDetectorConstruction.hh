@@ -170,7 +170,7 @@ private:
   G4double           DeviceSizeY;
   G4double           DeviceThickness;
 
-  G4Box*             solidWorld;    //pointer to the solid World
+  G4Sphere*             solidWorld;    //pointer to the solid World
   G4LogicalVolume*   logicWorld;    //pointer to the logical World
   G4VPhysicalVolume* physiWorld;    //pointer to the physical World
 
@@ -397,8 +397,8 @@ inline void XrayFluoDetectorConstruction::ComputeApparateParameters()
 
   if (phaseSpaceFlag) {
 
-    WorldSizeZ = 10 *CLHEP::m;
-    WorldSizeXY = 10 *CLHEP::m;
+    WorldSizeZ = 1 *CLHEP::m;
+    WorldSizeXY = 1 *CLHEP::m;
 
   }
   else {

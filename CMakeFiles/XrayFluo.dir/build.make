@@ -633,33 +633,9 @@ CMakeFiles/XrayFluo.dir/src/XrayFluoPlanePrimaryGeneratorMessenger.cc.o.provides
 CMakeFiles/XrayFluo.dir/src/XrayFluoPlanePrimaryGeneratorMessenger.cc.o.provides.build: CMakeFiles/XrayFluo.dir/src/XrayFluoPlanePrimaryGeneratorMessenger.cc.o
 
 
-CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction_copy.cc.o: CMakeFiles/XrayFluo.dir/flags.make
-CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction_copy.cc.o: src/XrayFluoPrimaryGeneratorAction\ copy.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/centerforenergyresearch/Workspace/GEANT4/xray_fluorescence/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction_copy.cc.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction_copy.cc.o -c "/Users/centerforenergyresearch/Workspace/GEANT4/xray_fluorescence/src/XrayFluoPrimaryGeneratorAction copy.cc"
-
-CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction_copy.cc.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction_copy.cc.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/centerforenergyresearch/Workspace/GEANT4/xray_fluorescence/src/XrayFluoPrimaryGeneratorAction copy.cc" > CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction_copy.cc.i
-
-CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction_copy.cc.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction_copy.cc.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/centerforenergyresearch/Workspace/GEANT4/xray_fluorescence/src/XrayFluoPrimaryGeneratorAction copy.cc" -o CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction_copy.cc.s
-
-CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction_copy.cc.o.requires:
-
-.PHONY : CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction_copy.cc.o.requires
-
-CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction_copy.cc.o.provides: CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction_copy.cc.o.requires
-	$(MAKE) -f CMakeFiles/XrayFluo.dir/build.make CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction_copy.cc.o.provides.build
-.PHONY : CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction_copy.cc.o.provides
-
-CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction_copy.cc.o.provides.build: CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction_copy.cc.o
-
-
 CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction.cc.o: CMakeFiles/XrayFluo.dir/flags.make
 CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction.cc.o: src/XrayFluoPrimaryGeneratorAction.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/centerforenergyresearch/Workspace/GEANT4/xray_fluorescence/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building CXX object CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/centerforenergyresearch/Workspace/GEANT4/xray_fluorescence/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction.cc.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction.cc.o -c /Users/centerforenergyresearch/Workspace/GEANT4/xray_fluorescence/src/XrayFluoPrimaryGeneratorAction.cc
 
 CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction.cc.i: cmake_force
@@ -679,6 +655,30 @@ CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction.cc.o.provides: CMakeF
 .PHONY : CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction.cc.o.provides
 
 CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction.cc.o.provides.build: CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction.cc.o
+
+
+CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorActionOld.cc.o: CMakeFiles/XrayFluo.dir/flags.make
+CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorActionOld.cc.o: src/XrayFluoPrimaryGeneratorActionOld.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/centerforenergyresearch/Workspace/GEANT4/xray_fluorescence/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building CXX object CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorActionOld.cc.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorActionOld.cc.o -c /Users/centerforenergyresearch/Workspace/GEANT4/xray_fluorescence/src/XrayFluoPrimaryGeneratorActionOld.cc
+
+CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorActionOld.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorActionOld.cc.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/centerforenergyresearch/Workspace/GEANT4/xray_fluorescence/src/XrayFluoPrimaryGeneratorActionOld.cc > CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorActionOld.cc.i
+
+CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorActionOld.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorActionOld.cc.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/centerforenergyresearch/Workspace/GEANT4/xray_fluorescence/src/XrayFluoPrimaryGeneratorActionOld.cc -o CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorActionOld.cc.s
+
+CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorActionOld.cc.o.requires:
+
+.PHONY : CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorActionOld.cc.o.requires
+
+CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorActionOld.cc.o.provides: CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorActionOld.cc.o.requires
+	$(MAKE) -f CMakeFiles/XrayFluo.dir/build.make CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorActionOld.cc.o.provides.build
+.PHONY : CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorActionOld.cc.o.provides
+
+CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorActionOld.cc.o.provides.build: CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorActionOld.cc.o
 
 
 CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorMessenger.cc.o: CMakeFiles/XrayFluo.dir/flags.make
@@ -971,8 +971,8 @@ XrayFluo_OBJECTS = \
 "CMakeFiles/XrayFluo.dir/src/XrayFluoPlaneDetectorMessenger.cc.o" \
 "CMakeFiles/XrayFluo.dir/src/XrayFluoPlanePrimaryGeneratorAction.cc.o" \
 "CMakeFiles/XrayFluo.dir/src/XrayFluoPlanePrimaryGeneratorMessenger.cc.o" \
-"CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction_copy.cc.o" \
 "CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction.cc.o" \
+"CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorActionOld.cc.o" \
 "CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorMessenger.cc.o" \
 "CMakeFiles/XrayFluo.dir/src/XrayFluoRunAction.cc.o" \
 "CMakeFiles/XrayFluo.dir/src/XrayFluoSD.cc.o" \
@@ -1012,8 +1012,8 @@ XrayFluo: CMakeFiles/XrayFluo.dir/src/XrayFluoPlaneDetectorConstruction.cc.o
 XrayFluo: CMakeFiles/XrayFluo.dir/src/XrayFluoPlaneDetectorMessenger.cc.o
 XrayFluo: CMakeFiles/XrayFluo.dir/src/XrayFluoPlanePrimaryGeneratorAction.cc.o
 XrayFluo: CMakeFiles/XrayFluo.dir/src/XrayFluoPlanePrimaryGeneratorMessenger.cc.o
-XrayFluo: CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction_copy.cc.o
 XrayFluo: CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction.cc.o
+XrayFluo: CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorActionOld.cc.o
 XrayFluo: CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorMessenger.cc.o
 XrayFluo: CMakeFiles/XrayFluo.dir/src/XrayFluoRunAction.cc.o
 XrayFluo: CMakeFiles/XrayFluo.dir/src/XrayFluoSD.cc.o
@@ -1098,8 +1098,8 @@ CMakeFiles/XrayFluo.dir/requires: CMakeFiles/XrayFluo.dir/src/XrayFluoPlaneDetec
 CMakeFiles/XrayFluo.dir/requires: CMakeFiles/XrayFluo.dir/src/XrayFluoPlaneDetectorMessenger.cc.o.requires
 CMakeFiles/XrayFluo.dir/requires: CMakeFiles/XrayFluo.dir/src/XrayFluoPlanePrimaryGeneratorAction.cc.o.requires
 CMakeFiles/XrayFluo.dir/requires: CMakeFiles/XrayFluo.dir/src/XrayFluoPlanePrimaryGeneratorMessenger.cc.o.requires
-CMakeFiles/XrayFluo.dir/requires: CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction_copy.cc.o.requires
 CMakeFiles/XrayFluo.dir/requires: CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction.cc.o.requires
+CMakeFiles/XrayFluo.dir/requires: CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorActionOld.cc.o.requires
 CMakeFiles/XrayFluo.dir/requires: CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorMessenger.cc.o.requires
 CMakeFiles/XrayFluo.dir/requires: CMakeFiles/XrayFluo.dir/src/XrayFluoRunAction.cc.o.requires
 CMakeFiles/XrayFluo.dir/requires: CMakeFiles/XrayFluo.dir/src/XrayFluoSD.cc.o.requires

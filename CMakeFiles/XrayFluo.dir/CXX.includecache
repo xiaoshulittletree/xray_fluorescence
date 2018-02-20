@@ -5052,7 +5052,7 @@ XrayFluoPlanePrimaryGeneratorAction.hh
 G4UIcmdWithAString.hh
 /Users/centerforenergyresearch/Workspace/GEANT4/xray_fluorescence/src/G4UIcmdWithAString.hh
 
-/Users/centerforenergyresearch/Workspace/GEANT4/xray_fluorescence/src/XrayFluoPrimaryGeneratorAction copy.cc
+/Users/centerforenergyresearch/Workspace/GEANT4/xray_fluorescence/src/XrayFluoPrimaryGeneratorAction.cc
 XrayFluoPrimaryGeneratorAction.hh
 /Users/centerforenergyresearch/Workspace/GEANT4/xray_fluorescence/src/XrayFluoPrimaryGeneratorAction.hh
 XrayFluoDetectorConstruction.hh
@@ -5084,7 +5084,7 @@ G4PhysicalConstants.hh
 G4SystemOfUnits.hh
 /Users/centerforenergyresearch/Workspace/GEANT4/xray_fluorescence/src/G4SystemOfUnits.hh
 
-/Users/centerforenergyresearch/Workspace/GEANT4/xray_fluorescence/src/XrayFluoPrimaryGeneratorAction.cc
+/Users/centerforenergyresearch/Workspace/GEANT4/xray_fluorescence/src/XrayFluoPrimaryGeneratorActionOld.cc
 XrayFluoPrimaryGeneratorAction.hh
 /Users/centerforenergyresearch/Workspace/GEANT4/xray_fluorescence/src/XrayFluoPrimaryGeneratorAction.hh
 XrayFluoDetectorConstruction.hh

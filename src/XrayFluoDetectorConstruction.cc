@@ -349,8 +349,9 @@ G4VPhysicalVolume* XrayFluoDetectorConstruction::ConstructApparate()
 
   //world and associated navigator
 
-  solidWorld = new G4Box("World",	      		        //its name
-			 WorldSizeXY/2,WorldSizeXY/2,WorldSizeZ/2);	//its size
+  //solidWorld = new G4Sphere("World",	      		        //its name
+  solidWorld = new G4Sphere("World",0.,
+   WorldSizeXY/2,0., twopi, 0., pi);;	//its size
 
   logicWorld = new G4LogicalVolume(solidWorld,		//its solid
                                    defaultMaterial,	//its material
@@ -366,8 +367,8 @@ G4VPhysicalVolume* XrayFluoDetectorConstruction::ConstructApparate()
   aNavigator->SetWorldVolume(physiWorld);
 
   G4cout << "World constructed" << G4endl;
-
-
+  G4bool ConstructDetector=0;
+if (ConstructDetector){
   solidBMXS= new G4Box("BMXS",
               10.*cm/2, 10.*cm/2, 20.*cm/2);
   solidBMXSCollimator= new G4Tubs("Collimator", 0., 0.64*cm, //1/2 inch diameter collimator
@@ -452,7 +453,7 @@ G4VPhysicalVolume* XrayFluoDetectorConstruction::ConstructApparate()
                                  0);
 
 
-
+}
 
 
 /*
@@ -828,7 +829,7 @@ G4VPhysicalVolume* XrayFluoDetectorConstruction::ConstructApparate()
 					 "Sample");	//its name
 
 	physiSample = new G4PVPlacement(0,			//no rotation
-					G4ThreeVector(),	//at (0,0,0)
+					G4ThreeVector(0,0,0),	//at (0,0,0)
 					"Sample",	//its name
 					logicSample,	//its logical volume
 					physiWorld,	//its mother  volume
@@ -999,10 +1000,14 @@ G4VPhysicalVolume* XrayFluoDetectorConstruction::ConstructApparate()
   logicAblator->SetVisAttributes(blue);
   logicCulayer->SetVisAttributes(red);
   logicAllayer->SetVisAttributes(lightGray);
-  logicBMXS->SetVisAttributes(simpleBoxVisAtt);
-  logicBMXSCollimator->SetVisAttributes(blue);
-  logicCartridge->SetVisAttributes(simpleBoxVisAtt);
-  logicTeflonBlock->SetVisAttributes(green);
+  G4cout << "Finished Visualization" << G4endl;
+  if(ConstructDetector)
+  {
+    logicBMXS->SetVisAttributes(simpleBoxVisAtt);
+    logicBMXSCollimator->SetVisAttributes(blue);
+    logicCartridge->SetVisAttributes(simpleBoxVisAtt);
+    logicTeflonBlock->SetVisAttributes(green);
+  }
   /*
   for(G4int i=0;i<15;i++ )
   {
@@ -1122,8 +1127,8 @@ G4ThreeVector XrayFluoDetectorConstruction::GetDetectorPosition() const
   G4double 	z = DistDe * std::cos(ThetaHPGe);
   G4double	y = DistDe * std::sin(ThetaHPGe);
   G4double	x = 0.*cm;
-
-  G4ThreeVector position(x,y,z);
+//G4ThreeVector position(x,y,z);
+  G4ThreeVector position(0,0,0);
 
   return position;
 

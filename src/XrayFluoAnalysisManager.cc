@@ -69,7 +69,7 @@ namespace {
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
 XrayFluoAnalysisManager::XrayFluoAnalysisManager()
-  :outputFileName("xrayfluo"), phaseSpaceFlag(false), physicFlag (false),
+  :outputFileName("xrayfluo"), phaseSpaceFlag(true), physicFlag (false),
    gunParticleEnergies(0), gunParticleTypes(0)
 {
   dataLoaded = false;
@@ -128,14 +128,18 @@ void XrayFluoAnalysisManager::book()
     {
       // Book output Tuple (ID = 1)
       man->CreateNtuple("101","OutputNTuple");
-      man->CreateNtupleIColumn("particle");
-      man->CreateNtupleDColumn("energies");
+      man->CreateNtupleIColumn("particle"); //int
+      man->CreateNtupleDColumn("energies"); //double
       man->CreateNtupleDColumn("momentumTheta");
       man->CreateNtupleDColumn("momentumPhi");
-      man->CreateNtupleIColumn("processes");
-      man->CreateNtupleIColumn("material");
-      man->CreateNtupleIColumn("origin");
-      man->CreateNtupleDColumn("depth");
+      man->CreateNtupleDColumn("existPosTheta");
+      man->CreateNtupleDColumn("existPosPhi");
+      man->CreateNtupleDColumn("existPosRho");
+
+  //   man->CreateNtupleIColumn("processes");
+  //    man->CreateNtupleIColumn("material");
+  //    man->CreateNtupleIColumn("origin");
+  //    man->CreateNtupleDColumn("depth");
       man->FinishNtuple();
       G4cout << "Created ntuple for phase space" << G4endl;
     }
@@ -250,17 +254,46 @@ void XrayFluoAnalysisManager::analyseStepping(const G4Step* aStep)
 {
   G4AutoLock l(&dataManipulationMutex);
   G4AnalysisManager* man = G4AnalysisManager::Instance();
-
+phaseSpaceFlag=1;
   if (phaseSpaceFlag){
     G4ParticleDefinition* particleType= 0;
     G4String parentProcess="";
     G4ThreeVector momentum(0.,0.,0.);
+    G4ThreeVector existPos(0,0,0);
     G4double particleEnergy=0;
     G4String sampleMaterial="";
     G4double particleDepth=0;
     G4int isBornInTheSample=0;
     XrayFluoDetectorConstruction* detector = XrayFluoDetectorConstruction::GetInstance();
+    //if(aStep->GetPostStepPoint()->GetStepStatus() == fGeomBoundary)
+    if(aStep->GetPostStepPoint()->GetStepStatus() == fWorldBoundary)
+    {
+      particleType = aStep->GetTrack()->GetDynamicParticle()->GetDefinition();
+      momentum = aStep->GetTrack()->GetDynamicParticle()->GetMomentum();
+      particleEnergy = aStep->GetPreStepPoint()->GetKineticEnergy();
+      existPos=aStep->GetPostStepPoint()->GetPosition();
 
+      G4int part = -1 ;
+      if (particleType == G4Gamma::Definition()) part =1;
+      if (particleType == G4Electron::Definition()) part = 0;
+      if (particleType == G4Proton::Definition()) part = 2;
+
+      man->FillNtupleIColumn(1,0, part);
+  	  man->FillNtupleDColumn(1,1,particleEnergy);
+  	  man->FillNtupleDColumn(1,2,momentum.theta());
+  	  man->FillNtupleDColumn(1,3,momentum.phi());
+  	 // man->FillNtupleIColumn(1,4,parent);
+  	 // man->FillNtupleIColumn(1,5,sampleMat);
+  	 // man->FillNtupleIColumn(1,6,isBornInTheSample);
+  	 // man->FillNtupleDColumn(1,7,particleDepth);
+      man->FillNtupleDColumn(1,4,existPos.theta());
+      man->FillNtupleDColumn(1,5,existPos.phi());
+      man->FillNtupleDColumn(1,6,existPos.rho()/m);
+  	  man->AddNtupleRow(1);
+
+    }
+
+    /*
     // Select volume from which the step starts
     if(aStep->GetPreStepPoint()->GetPhysicalVolume()->GetName()=="Sample"){
       G4ThreeVector creationPos = aStep->GetTrack()->GetVertexPosition();
@@ -275,7 +308,7 @@ void XrayFluoAnalysisManager::analyseStepping(const G4Step* aStep)
       if (physicFlag ^ (!physicFlag &&
 			(aStep->GetPostStepPoint()->GetStepStatus() == fGeomBoundary)
 			))
-	{
+	    {
 	  // extracting information needed
 	  particleType = aStep->GetTrack()->GetDynamicParticle()->GetDefinition();
 	  momentum = aStep->GetTrack()->GetDynamicParticle()->GetMomentum();
@@ -332,8 +365,9 @@ void XrayFluoAnalysisManager::analyseStepping(const G4Step* aStep)
 	}
     }
   }
-
+*/
   // Normal behaviour, without creation of phase space
+}
   else
     {
 
@@ -457,6 +491,7 @@ void XrayFluoAnalysisManager::analyseStepping(const G4Step* aStep)
 
 	}
     }
+
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....

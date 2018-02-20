@@ -4852,7 +4852,7 @@ CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction.cc.o
  include/XrayFluoSensorHit.hh
  include/XrayFluoSiLiDetectorType.hh
  include/XrayFluoVDetectorType.hh
-CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction_copy.cc.o
+CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorActionOld.cc.o
  /Users/centerforenergyresearch/Workspace/GEANT4/geant4.10.3-install/include/Geant4/CLHEP/Geometry/BasicVector3D.h
  /Users/centerforenergyresearch/Workspace/GEANT4/geant4.10.3-install/include/Geant4/CLHEP/Geometry/Normal3D.h
  /Users/centerforenergyresearch/Workspace/GEANT4/geant4.10.3-install/include/Geant4/CLHEP/Geometry/Point3D.h
@@ -5121,7 +5121,7 @@ CMakeFiles/XrayFluo.dir/src/XrayFluoPrimaryGeneratorAction_copy.cc.o
  /Users/centerforenergyresearch/Workspace/GEANT4/geant4.10.3-install/include/Geant4/trajectoryControl.hh
  /Users/centerforenergyresearch/Workspace/GEANT4/geant4.10.3-install/include/Geant4/trkdefs.hh
  /Users/centerforenergyresearch/Workspace/GEANT4/geant4.10.3-install/include/Geant4/windefs.hh
- /Users/centerforenergyresearch/Workspace/GEANT4/xray_fluorescence/src/XrayFluoPrimaryGeneratorAction copy.cc
+ /Users/centerforenergyresearch/Workspace/GEANT4/xray_fluorescence/src/XrayFluoPrimaryGeneratorActionOld.cc
  include/XrayFluoAnalysisManager.hh
  include/XrayFluoAnalysisMessenger.hh
  include/XrayFluoDataSet.hh
