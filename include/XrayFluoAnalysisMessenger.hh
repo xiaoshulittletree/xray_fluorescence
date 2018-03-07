@@ -49,6 +49,7 @@
 #include "XrayFluoAnalysisManager.hh"
 #include "G4UIdirectory.hh"
 #include "G4UIcmdWithABool.hh"
+#include "G4UIcmdWithAnInteger.hh"
 class XrayFluoAnalysisManager;
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
@@ -60,19 +61,16 @@ class XrayFluoAnalysisMessenger: public G4UImessenger
 public:
   XrayFluoAnalysisMessenger(XrayFluoAnalysisManager*);
   ~XrayFluoAnalysisMessenger();
-  
+
   void SetNewValue(G4UIcommand*, G4String);
-  
+
 private:
 
   //pointer to XrayFluoAnalysisManager
   XrayFluoAnalysisManager* xrayFluoAnalysis;
   G4UIdirectory* XrayFluoAnalysisDir;
-  G4UIcmdWithAString* outputFileCommand; 
+  G4UIcmdWithAString* outputFileCommand;
   G4UIcmdWithABool* physicFlagCmd;
-
+  G4UIcmdWithAnInteger* NtupleDataVolumeCmd;
 };
 #endif
-
-
-

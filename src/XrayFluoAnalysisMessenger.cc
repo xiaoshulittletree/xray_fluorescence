@@ -41,17 +41,17 @@
 
 XrayFluoAnalysisMessenger::XrayFluoAnalysisMessenger(XrayFluoAnalysisManager* analysisManager)
   :xrayFluoAnalysis(analysisManager)
-  
-{ 
+
+{
   XrayFluoAnalysisDir = new G4UIdirectory("/analysis/");
   XrayFluoAnalysisDir->SetGuidance("analysis control.");
-  
+
   outputFileCommand = new G4UIcmdWithAString("/analysis/outputFile",this);
   outputFileCommand->SetGuidance("specify the name of the output file");
   outputFileCommand->SetParameterName("choice",true);
   outputFileCommand->SetDefaultValue("xrayfluo.root");
   outputFileCommand->AvailableForStates(G4State_Idle);
-    
+
 
   physicFlagCmd = new G4UIcmdWithABool("/analysis/setPhysicProduction",this);
   physicFlagCmd->SetGuidance("Select if data stored in the Phase-Space must contain physical data or particles exiting the sample");
@@ -60,46 +60,40 @@ XrayFluoAnalysisMessenger::XrayFluoAnalysisMessenger(XrayFluoAnalysisManager* an
   physicFlagCmd->SetDefaultValue(false);
   physicFlagCmd->AvailableForStates(G4State_Idle);
 
+  NtupleDataVolumeCmd = new G4UIcmdWithAnInteger("/analysis/setNtupleVolume",this);
+  NtupleDataVolumeCmd->SetGuidance("Set the maximum photon or electron number been stored");
+  NtupleDataVolumeCmd->SetDefaultValue(1e6);
+  NtupleDataVolumeCmd->AvailableForStates(G4State_Idle);
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
 XrayFluoAnalysisMessenger::~XrayFluoAnalysisMessenger()
 {
-  
-  delete XrayFluoAnalysisDir; 
- 
+
+  delete XrayFluoAnalysisDir;
+
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
 void XrayFluoAnalysisMessenger::SetNewValue(G4UIcommand* command,G4String newValue)
-{ 
+{
 
   if(command == outputFileCommand)
-    {      
+    {
       xrayFluoAnalysis->SetOutputFileName(newValue);
     }
-  
+
   if( command == physicFlagCmd )
-    { 
+    {
       G4bool newPhysFlag = physicFlagCmd->GetNewBoolValue(newValue);
       xrayFluoAnalysis->SetPhysicFlag(newPhysFlag);
+    }
+    if( command == NtupleDataVolumeCmd)
+    {
+      G4int DataVolume = NtupleDataVolumeCmd-> GetNewIntValue(newValue);
+      xrayFluoAnalysis->SetDataVolume(DataVolume);
     }
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
