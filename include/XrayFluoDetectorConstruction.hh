@@ -257,9 +257,9 @@ private:
   G4Material*        OhmicNegMaterial;
   G4Material*        pixelMaterial;
   G4Material*        sampleMaterial;
-  G4Material*        CH = G4Material::GetMaterial("G4_POLYSTYRENE");
-  G4Material*        Cu = G4Material::GetMaterial("G4_Cu");
-  G4Material*        Al = G4Material::GetMaterial("G4_Al");
+  G4Material*        CH;
+  G4Material*        Cu;
+  G4Material*        Al;
   G4Material*        Pb;
   G4Material*        Teflon;
   G4Material*        Mylar;
