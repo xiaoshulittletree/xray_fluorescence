@@ -192,7 +192,22 @@ private:
   G4LogicalVolume*   logicAllayer;    //pointer to the logical Allayer
   G4VPhysicalVolume* physiAllayer;    //pointer to the physical Allayer”
 
+// added for 4 layer spherical target
+  G4Sphere*             solidInnerlayer;    //pointer
+  G4LogicalVolume*      logicInnerlayer;    //pointer to
+  G4VPhysicalVolume*    physiInnerlayer;    //pointer to
 
+  G4Sphere*             solid2ndlayer;    //pointer to
+  G4LogicalVolume*      logic2ndlayer;    //pointer to the
+  G4VPhysicalVolume*    physi2ndlayer;    //pointer to the
+
+  G4Sphere*             solid3rdlayer;    //pointer to
+  G4LogicalVolume*      logic3rdlayer;    //pointer to the
+  G4VPhysicalVolume*    physi3rdlayer;    //pointer to the
+
+  G4Sphere*             solidOuterlayer;    //pointer to the
+  G4LogicalVolume*      logicOuterlayer;    //pointer to the
+  G4VPhysicalVolume*    physiOuterlayer;    //pointer to the
 
   G4Tubs*             solidDia1; //pointer to the solid  Diaphragm
   G4LogicalVolume*   logicDia1; //pointer to the logical  Diaphragm
@@ -271,6 +286,11 @@ private:
   G4Material*        Ta;
   G4Material*        Au;
 
+  G4Material*        DenseCH;
+  G4Material*        MixCuCH;
+  G4Material*        CuFoam;
+  G4Material*        DenseCu;
+
 
 
   G4Material*        Dia1Material;
@@ -323,6 +343,14 @@ private:
   G4double           Culayerthickness;
   G4double           Allayerthickness;
   G4double           Stepthickness;
+
+//added for spherical target
+  G4double           SampleRadius;
+
+  G4double           InnerRadius;
+  G4double           SecondRadius;
+  G4double           ThirdRadius;
+  G4double           OuterRadius;
 
   G4double           filtersizeXY;
   G4double           Teflonthickness;

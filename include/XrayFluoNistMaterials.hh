@@ -47,16 +47,16 @@ class XrayFluoNistMaterials
 public:
 
   ~XrayFluoNistMaterials();
-  
+
   static XrayFluoNistMaterials* GetInstance();
-  
+
   G4Material* GetMaterial(G4String);
 
-  
+
 private:
-  
+
   XrayFluoNistMaterials();
-  
+
   void CreateMaterials();
 
 private:
@@ -86,6 +86,11 @@ private:
   G4Material*        icelandicRF;
   G4Material*        GaAs;
   G4Material*        galactic;
+  G4Material*        MixCuCH;
+  G4Material*        CuFoam;
+  G4Material*        DenseCH;
+  G4Material*        DenseCu;
+
 
 };
 
