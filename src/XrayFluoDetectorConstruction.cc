@@ -118,15 +118,16 @@ XrayFluoDetectorConstruction::XrayFluoDetectorConstruction()
   G4cout << "PixelSizeXY(cm): "<< PixelSizeXY/cm << G4endl;
 
   ContactSizeXY     = PixelSizeXY; //std::sqrt(40) * mm; //should be the same as PixelSizeXY
-  SampleThickness = 20 * mm;
-  SampleSizeXY = 3. * cm; //need to change to 5 mm it's the diameter of the target.
+  SampleThickness = 4 * mm;
+  SampleSizeXY = 4. * mm; //need to change to 5 mm it's the diameter of the target.
   Dia1Thickness = 1. *mm;
   Dia3Thickness = 1. *mm;
   Dia1SizeXY = 3. *cm;
   Dia3SizeXY = 3. *cm;
 
-  Ablatorthickness = 25. * um;
-  Culayerthickness = 20. * um;
+  Ablatorthickness = 175. * um;
+  Culayerthickness = 25. * um;
+  Stepthickness = 310. * um;
   Allayerthickness = 50. * um;
 
   filtersizeXY=2.5*cm;
@@ -698,7 +699,7 @@ if (ConstructDetector){
     if (SampleThickness > 0.)
       {
 	solidSample = new G4Box("Sample",		//its name
-				SampleSizeXY/2,SampleSizeXY/2,SampleThickness/2);//size
+				SampleSizeXY/2,SampleSizeXY/2,SampleThickness);//size
 
 	logicSample= new G4LogicalVolume(solidSample,	//its solid
 					 defaultMaterial,	//its material
@@ -860,12 +861,12 @@ if (ConstructDetector){
                false,
              0);
 
-   solidAllayer= new G4Tubs("Allayer",
-                  0, SampleSizeXY/2, Allayerthickness/2, 0, 360.*degree ); // name Allayer,
+   solidAllayer= new G4Tubs("Steplayer",
+                  0, SampleSizeXY/2, Stepthickness/2, 0, 360.*degree ); // name Allayer,
                   //inner radus 0, Outer radius half of SampleSizeXY,
                   //25 um thickness, start from 0, segment angle 360.
-   logicAllayer= new G4LogicalVolume(solidAllayer, Al, "Allayer");
-   physiAllayer= new G4PVPlacement(0, G4ThreeVector(0,0,Ablatorthickness+Culayerthickness+Allayerthickness/2),"Allayer",
+   logicAllayer= new G4LogicalVolume(solidAllayer, CH, "Steplayer");
+   physiAllayer= new G4PVPlacement(0, G4ThreeVector(0,0,Ablatorthickness+Culayerthickness+Stepthickness/2),"Steplayer",
                   logicAllayer,
                  physiSample,
                false,

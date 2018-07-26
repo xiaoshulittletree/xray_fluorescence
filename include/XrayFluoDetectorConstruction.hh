@@ -322,6 +322,7 @@ private:
   G4double           Ablatorthickness;
   G4double           Culayerthickness;
   G4double           Allayerthickness;
+  G4double           Stepthickness;
 
   G4double           filtersizeXY;
   G4double           Teflonthickness;

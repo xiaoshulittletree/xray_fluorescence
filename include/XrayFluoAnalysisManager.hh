@@ -25,7 +25,7 @@
 //
 //
 // $Id: XrayFluoAnalysisManager.hh
-// GEANT4 tag $Name: 
+// GEANT4 tag $Name:
 //
 // Author: Elena Guardincerri (Elena.Guardincerri@ge.infn.it)
 //
@@ -55,22 +55,22 @@ class XrayFluoAnalysisMessenger;
 class XrayFluoAnalysisManager
 {
 public:
- 
+
   virtual ~XrayFluoAnalysisManager();
-  
+
   void book();
-  
+
   void finish();
-  
+
   //fill histograms with data from XrayFluoSteppingAction
   void analyseStepping(const G4Step* aStep);
-  
+
  //fill histograms with data from XrayFluoEventAction
   void analyseEnergyDep(G4double eDep);
-  
+
  //fill histograms with data from XrayFluoPrimarygeneratorAction
   void analysePrimaryGenerator(G4double energy);
-  
+
   //method to call to create an instance of this class
   static XrayFluoAnalysisManager* getInstance();
 
@@ -88,6 +88,14 @@ public:
 
   void SetPhysicFlag(G4bool);
 
+  void SetDataVolume(G4int);
+
+
+  G4int photonnumber;
+  G4int electronnumber;
+  G4int evtNb;
+  G4int NtupleDataVolume;
+
 private:
   //private constructor in order to create a singleton
   XrayFluoAnalysisManager();
@@ -101,18 +109,15 @@ private:
   std::vector<G4double>* gunParticleEnergies;
   std::vector<G4String>* gunParticleTypes;
 
-  //Instance for singleton implementation this is the returned 
+  //Instance for singleton implementation this is the returned
   static XrayFluoAnalysisManager* instance;
-  
+
   //pointer to the analysis messenger
   XrayFluoAnalysisMessenger* analisysMessenger;
 
   G4bool dataLoaded;
- 
+
   G4int fParticleEnergyAndTypeIndex;
 
 };
 #endif
-
-
-
