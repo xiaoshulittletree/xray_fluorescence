@@ -115,32 +115,6 @@ void XrayFluoNistMaterials::CreateMaterials()
   // Materials Definitions
 
 
-    // Define MixCuCH
-    density = 20*g/cm3;
-    elements.push_back("Cu");  fractionMass.push_back(0.5);  // 0.007093 mol/g(mat)
-    elements.push_back("C");  fractionMass.push_back(0.4615); // 4.235e-4
-    elements.push_back("H");  fractionMass.push_back(0.0385); // 0.001763
-
-
-     // sum is 0.04434383 total number of moles of atoms in one gram of material
-    // 2.248766e8 g per 10.000.000 moles.
-
-    G4Material* madaBasaltMain= nistMan->ConstructNewMaterial("MixCuCH",elements, fractionMass, density);
-    elements.clear();
-    fractionMass.clear();
-
-    // Define CuFoam
-
-    density = 1.1*g/cm3;
-    elements.push_back("Cu");  fractionMass.push_back(1);  // 0.007093 mol/g(mat)
-
-
-     // sum is 0.04434383 total number of moles of atoms in one gram of material
-    // 2.248766e8 g per 10.000.000 moles.
-
-    G4Material* madaBasaltMain= nistMan->ConstructNewMaterial("CuFoam",elements, fractionMass, density);
-    elements.clear();
-    fractionMass.clear();
 
 
   ///////////////////////
