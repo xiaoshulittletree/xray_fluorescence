@@ -140,7 +140,7 @@ void XrayFluoPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
   //this function is called at the begining of event
   //
   //G4double z0 = -0.5*(XrayFluoDetector->GetWorldSizeZ());
-	G4double z0 = -200* um;
+	G4double z0 = -XrayFluoDetector->GetSampleRadius();
   G4double y0 = 0.*cm, x0 = 0.*cm;
   if (rndmFlag == "on")
     {

@@ -121,7 +121,7 @@ XrayFluoDetectorConstruction::XrayFluoDetectorConstruction()
   SampleThickness = 0 * mm;
   SampleSizeXY = 0. * mm; //need to change to 5 mm it's the diameter of the target.
 
-  SampleRadius=1*mm;
+  SampleRadius=0.25*mm;
   Dia1Thickness = 1. *mm;
   Dia3Thickness = 1. *mm;
   Dia1SizeXY = 3. *cm;
@@ -904,18 +904,18 @@ if (ConstructDetector){
                  false,		//no boolean operation
                  0);		//copy number
          solidInnerlayer= new G4Sphere("Inner",
-                        0, InnerRadius, , 0,360*degree, 0, 180.*degree );
+                        0, InnerRadius , 0,360*degree, 0, 180.*degree );
                         //inner radus 0, Outer radius ,
                         //25 um thickness, start from 0, segment angle 360.
          logicInnerlayer= new G4LogicalVolume(solidInnerlayer, CuFoam, "Inner");
-         physiInnerlayer= new G4PVPlacement(0, G4ThreeVector(0,0,0,"Inner",
+         physiInnerlayer= new G4PVPlacement(0, G4ThreeVector(0,0,0),"Inner",
                         logicInnerlayer,
                        physiSample,
                      false,
                    0);
 
          solid2ndlayer= new G4Sphere("Secondlayer",
-                        InnerRadius, SecondRadius,  0, 360.*degree, 0, 180*degree); ,
+                        InnerRadius, SecondRadius,  0, 360.*degree, 0, 180*degree);
          logic2ndlayer= new G4LogicalVolume(solid2ndlayer, DenseCu, "Secondlayer");
          physi2ndlayer= new G4PVPlacement(0, G4ThreeVector(0,0,0),"Secondlayer",
                         logic2ndlayer,
@@ -924,7 +924,7 @@ if (ConstructDetector){
                    0);
 
          solid3rdlayer= new G4Sphere("ThirdLayer",
-                        SecondRadius, ThirdRadius,  0, 360.*degree, 0, 180*degree); ,
+                        SecondRadius, ThirdRadius,  0, 360.*degree, 0, 180*degree);
          logic3rdlayer= new G4LogicalVolume(solid3rdlayer, MixCuCH, "ThirdLayer");
          physi3rdlayer= new G4PVPlacement(0, G4ThreeVector(0,0,0),"ThirdLayer",
                         logic3rdlayer,
@@ -933,7 +933,7 @@ if (ConstructDetector){
                    0);
 
          solidOuterlayer= new G4Sphere("Outerlayer",
-                        SecondRadius, OuterRadius,  0, 360.*degree, 0, 180*degree );
+                        ThirdRadius, OuterRadius,  0, 360.*degree, 0, 180*degree );
          logicOuterlayer= new G4LogicalVolume(solidOuterlayer, DenseCH, "Outerlayer");
          physiOuterlayer= new G4PVPlacement(0, G4ThreeVector(0,0,0),"Outerlayer",
                         logicOuterlayer,
@@ -1066,9 +1066,15 @@ if (ConstructDetector){
     logicWindow->SetVisAttributes(green);
 
   }
-  logicAblator->SetVisAttributes(blue);
-  logicCulayer->SetVisAttributes(red);
-  logicAllayer->SetVisAttributes(lightGray);
+
+  //logicAblator->SetVisAttributes(blue);
+  //logicCulayer->SetVisAttributes(red);
+  //logicAllayer->SetVisAttributes(lightGray);
+  logicInnerlayer->SetVisAttributes(blue);
+  logic2ndlayer->SetVisAttributes(red);
+  logic3rdlayer->SetVisAttributes(lightGray);
+  logicOuterlayer->SetVisAttributes(lightGray);
+
   G4cout << "Finished Visualization" << G4endl;
   if(ConstructDetector)
   {

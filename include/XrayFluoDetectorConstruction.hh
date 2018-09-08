@@ -123,6 +123,7 @@ public:
 
   G4double GetWorldSizeZ()  const         {return WorldSizeZ;};
   G4double GetWorldSizeXY() const     {return WorldSizeXY;};
+  G4double GetSampleRadius() const        {return SampleRadius;};
 
   G4double GetDeviceThickness() const     {return DeviceThickness;};
   G4double GetDeviceSizeX() const          {return DeviceSizeX;};
@@ -324,9 +325,9 @@ private:
 public:
 
   G4Material* GetSampleMaterial() const {return sampleMaterial;};
-  G4Material* GetAblatorMaterial() const {return CH;};
-  G4Material* GetCuMaterial() const {return Cu;};
-  G4Material* GetAlMaterial() const {return Al;};
+  G4Material* GetAblatorMaterial() const {return CH;}; //Function not used July 2018
+  G4Material* GetCuMaterial() const {return Cu;};//Function not used July 2018
+  G4Material* GetAlMaterial() const {return Al;};//Function not used July 2018
 
   G4Material* GetPixelMaterial() const {return pixelMaterial;};
   G4Material* GetDia1Material()  const {return Dia1Material;};
