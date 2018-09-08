@@ -118,14 +118,14 @@ XrayFluoDetectorConstruction::XrayFluoDetectorConstruction()
   G4cout << "PixelSizeXY(cm): "<< PixelSizeXY/cm << G4endl;
 
   ContactSizeXY     = PixelSizeXY; //std::sqrt(40) * mm; //should be the same as PixelSizeXY
-  SampleThickness = 20 * mm;
-  SampleSizeXY = 3. * cm; //need to change to 5 mm it's the diameter of the target.
+  SampleThickness = 1 * mm;
+  SampleSizeXY = 3. * mm; //need to change to 5 mm it's the diameter of the target.
   Dia1Thickness = 1. *mm;
   Dia3Thickness = 1. *mm;
   Dia1SizeXY = 3. *cm;
   Dia3SizeXY = 3. *cm;
 
-  Ablatorthickness = 25. * um;
+  Ablatorthickness = 140. * um;
   Culayerthickness = 20. * um;
   Allayerthickness = 50. * um;
 
