@@ -92,7 +92,6 @@ XrayFluoAnalysisManager::~XrayFluoAnalysisManager()
   gunParticleEnergies = 0;
   if ( gunParticleTypes ) delete gunParticleTypes;
   gunParticleTypes = 0;
-
   delete instance;
   instance = 0;
 
