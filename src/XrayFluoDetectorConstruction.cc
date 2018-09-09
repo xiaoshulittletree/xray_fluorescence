@@ -119,7 +119,7 @@ XrayFluoDetectorConstruction::XrayFluoDetectorConstruction()
 
   ContactSizeXY     = PixelSizeXY; //std::sqrt(40) * mm; //should be the same as PixelSizeXY
   SampleThickness = 1 * mm;
-  SampleSizeXY = 3. * cm; //need to change to 5 mm it's the diameter of the target.
+  SampleSizeXY = 3. * mm; //need to change to 5 mm it's the diameter of the target.
   Dia1Thickness = 1. *mm;
   Dia3Thickness = 1. *mm;
   Dia1SizeXY = 3. *cm;
