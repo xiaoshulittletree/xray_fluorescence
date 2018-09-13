@@ -85,7 +85,8 @@
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-XrayFluoPhysicsList::XrayFluoPhysicsList() : G4VModularPhysicsList()
+XrayFluoPhysicsList::XrayFluoPhysicsList() : G4VModularPhysicsList() //C++ inheritance
+
 {
   pMessenger = new XrayFluoPhysicsListMessenger(this);
 
@@ -277,13 +278,7 @@ void XrayFluoPhysicsList::SetCuts()
     G4cout << "PhysicsList::SetCuts:";
     G4cout << "CutLength : " << G4BestUnit(defaultCutValue,"Length") << G4endl;
   }
-
-  // set cut values for gamma at first and for e- second and next for e+,
-  // because some processes for e+/e- need cut values for gamma
-  SetCutValue(cutForGamma, "gamma");
-  SetCutValue(cutForElectron, "e-");
-  SetCutValue(cutForPositron, "e+");
-
+  //No further action needed. Since the SetDefaultCutValue has been run before the SetCuts.
   if (verboseLevel>0) DumpCutValuesTable();
 }
 
