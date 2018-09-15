@@ -289,6 +289,7 @@ private:
 
   G4Material*        DenseCH;
   G4Material*        MixCuCH;
+  G4Material*        DenseMixCuCH;
   G4Material*        CuFoam;
   G4Material*        DenseCu;
 

@@ -133,9 +133,9 @@ XrayFluoDetectorConstruction::XrayFluoDetectorConstruction()
   Allayerthickness = 50. * um;
 
   InnerRadius=130*um; //Cu foam r1
-  SecondRadius=135*um;// Dense Cu 20 g/cc 30 um thick r2
-  ThirdRadius=140*um;//MixCuCH 20 g/cc, half mass Cu, half mass CH r3
-  OuterRadius=143*um; //Dense CH 10 g/cc, need to match the total mass
+  SecondRadius=160*um;// Dense Cu 20 g/cc 30 um thick r2
+  ThirdRadius=160*um;//MixCuCH 20 g/cc, half mass Cu, half mass CH r3
+  OuterRadius=160*um; //Dense CH 10 g/cc, need to match the total mass
 //20*(r2^3-r1^3)+r1^3*1.1+(r3^3-r2^3)*10=212.5^3*1.1 Cu mass conservation
 //(r3^3-r2^3)*10=(212.5^3-182.5^3)*0.87 CH mass convervation
 //when r1=130 um, r2=((212.5^3*1.1-(212.5^3-182.5^3)*0.87)/20+18.9/20*130^3)^(1/3)
@@ -302,6 +302,7 @@ void XrayFluoDetectorConstruction::DefineDefaultMaterials()
   Au = materials -> GetMaterial("G4_Au");
 
   MixCuCH = materials -> GetMaterial("MixCuCH");
+  DenseMixCuCH = materials -> GetMaterial("DenseMixCuCH");
   CuFoam  = materials -> GetMaterial("CuFoam");
   DenseCH = materials -> GetMaterial("DenseCH");
   DenseCu = materials -> GetMaterial("DenseCu");
@@ -903,11 +904,12 @@ if (ConstructDetector){
                  physiWorld,	//its mother  volume
                  false,		//no boolean operation
                  0);		//copy number
+
          solidInnerlayer= new G4Sphere("Inner",
                         0, InnerRadius , 0,360*degree, 0, 180.*degree );
                         //inner radus 0, Outer radius ,
                         //25 um thickness, start from 0, segment angle 360.
-         logicInnerlayer= new G4LogicalVolume(solidInnerlayer, CuFoam, "Inner");
+         logicInnerlayer= new G4LogicalVolume(solidInnerlayer, MixCuCH, "Inner");
          physiInnerlayer= new G4PVPlacement(0, G4ThreeVector(0,0,0),"Inner",
                         logicInnerlayer,
                        physiSample,
@@ -916,7 +918,7 @@ if (ConstructDetector){
 
          solid2ndlayer= new G4Sphere("Secondlayer",
                         InnerRadius, SecondRadius,  0, 360.*degree, 0, 180*degree);
-         logic2ndlayer= new G4LogicalVolume(solid2ndlayer, DenseCu, "Secondlayer");
+         logic2ndlayer= new G4LogicalVolume(solid2ndlayer, DenseMixCuCH, "Secondlayer");
          physi2ndlayer= new G4PVPlacement(0, G4ThreeVector(0,0,0),"Secondlayer",
                         logic2ndlayer,
                        physiSample,
@@ -925,7 +927,8 @@ if (ConstructDetector){
 
          solid3rdlayer= new G4Sphere("ThirdLayer",
                         SecondRadius, ThirdRadius,  0, 360.*degree, 0, 180*degree);
-         logic3rdlayer= new G4LogicalVolume(solid3rdlayer, MixCuCH, "ThirdLayer");
+        logic3rdlayer= new G4LogicalVolume(solid3rdlayer, DenseMixCuCH, "ThirdLayer");
+
          physi3rdlayer= new G4PVPlacement(0, G4ThreeVector(0,0,0),"ThirdLayer",
                         logic3rdlayer,
                        physiSample,
@@ -934,7 +937,7 @@ if (ConstructDetector){
 
          solidOuterlayer= new G4Sphere("Outerlayer",
                         ThirdRadius, OuterRadius,  0, 360.*degree, 0, 180*degree );
-         logicOuterlayer= new G4LogicalVolume(solidOuterlayer, DenseCH, "Outerlayer");
+         logicOuterlayer= new G4LogicalVolume(solidOuterlayer, DenseMixCuCH, "Outerlayer");
          physiOuterlayer= new G4PVPlacement(0, G4ThreeVector(0,0,0),"Outerlayer",
                         logicOuterlayer,
                        physiSample,

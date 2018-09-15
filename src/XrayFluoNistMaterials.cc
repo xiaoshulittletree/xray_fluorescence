@@ -115,15 +115,23 @@ void XrayFluoNistMaterials::CreateMaterials()
   // Materials Definitions
 
 
+      // Define DenseMixCuCH
+      density = 9.7*g/cm3; // 5.5 CH, 4.2 Cu
+      elements.push_back("Cu");  fractionMass.push_back(0.433); // 4.2/9.7
+      elements.push_back("C");  fractionMass.push_back(0.5234); // 5.5/9.7/13*12
+      elements.push_back("H");  fractionMass.push_back(0.0436); // 5.5/9.7/13
+
+
+      G4Material* DenseMixCuCH= nistMan->ConstructNewMaterial("DenseMixCuCH",elements, fractionMass, density);
+      elements.clear();
+      fractionMass.clear();
+
       // Define MixCuCH
-      density = 20*g/cm3;
-      elements.push_back("Cu");  fractionMass.push_back(0.5);  // 0.007093 mol/g(mat)
-      elements.push_back("C");  fractionMass.push_back(0.4615); // 4.235e-4
-      elements.push_back("H");  fractionMass.push_back(0.0385); // 0.001763
+      density = 1.9946*g/cm3;
+      elements.push_back("Cu");  fractionMass.push_back(0.5114);  //
+      elements.push_back("C");  fractionMass.push_back(0.4510); //
+      elements.push_back("H");  fractionMass.push_back(0.0376); // 
 
-
-       // sum is 0.04434383 total number of moles of atoms in one gram of material
-      // 2.248766e8 g per 10.000.000 moles.
 
       G4Material* MixCuCH= nistMan->ConstructNewMaterial("MixCuCH",elements, fractionMass, density);
       elements.clear();
@@ -134,8 +142,6 @@ void XrayFluoNistMaterials::CreateMaterials()
       density = 1.1*g/cm3;
       elements.push_back("Cu");  fractionMass.push_back(1);  // 0.007093 mol/g(mat)
 
-       // sum is 0.04434383 total number of moles of atoms in one gram of material
-      // 2.248766e8 g per 10.000.000 moles.
 
       G4Material* CuFoam= nistMan->ConstructNewMaterial("CuFoam",elements, fractionMass, density);
       elements.clear();
@@ -146,8 +152,7 @@ void XrayFluoNistMaterials::CreateMaterials()
       density = 10*g/cm3;
       elements.push_back("C");  fractionMass.push_back(0.923);  // 0.007093 mol/g(mat)
       elements.push_back("H");  fractionMass.push_back(0.077);
-       // sum is 0.04434383 total number of moles of atoms in one gram of material
-      // 2.248766e8 g per 10.000.000 moles.
+
 
       G4Material* DenseCH= nistMan->ConstructNewMaterial("DenseCH",elements, fractionMass, density);
       elements.clear();
@@ -157,9 +162,6 @@ void XrayFluoNistMaterials::CreateMaterials()
 
       density = 20*g/cm3;
       elements.push_back("Cu");  fractionMass.push_back(1);
-
-       // sum is 0.04434383 total number of moles of atoms in one gram of material
-      // 2.248766e8 g per 10.000.000 moles.
 
       G4Material* DenseCu= nistMan->ConstructNewMaterial("DenseCu",elements, fractionMass, density);
       elements.clear();
