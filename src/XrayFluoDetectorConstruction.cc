@@ -924,25 +924,29 @@ if (ConstructDetector){
                        physiSample,
                      false,
                    0);
+        if (ThirdRadius>SecondRadius)
+        {
+           solid3rdlayer= new G4Sphere("ThirdLayer",
+                          SecondRadius, ThirdRadius,  0, 360.*degree, 0, 180*degree);
+           logic3rdlayer= new G4LogicalVolume(solid3rdlayer, DenseMixCuCH, "ThirdLayer");
 
-         solid3rdlayer= new G4Sphere("ThirdLayer",
-                        SecondRadius, ThirdRadius,  0, 360.*degree, 0, 180*degree);
-        logic3rdlayer= new G4LogicalVolume(solid3rdlayer, DenseMixCuCH, "ThirdLayer");
-
-         physi3rdlayer= new G4PVPlacement(0, G4ThreeVector(0,0,0),"ThirdLayer",
-                        logic3rdlayer,
-                       physiSample,
-                     false,
-                   0);
-
-         solidOuterlayer= new G4Sphere("Outerlayer",
-                        ThirdRadius, OuterRadius,  0, 360.*degree, 0, 180*degree );
-         logicOuterlayer= new G4LogicalVolume(solidOuterlayer, DenseMixCuCH, "Outerlayer");
-         physiOuterlayer= new G4PVPlacement(0, G4ThreeVector(0,0,0),"Outerlayer",
-                        logicOuterlayer,
-                       physiSample,
-                     false,
-                   0);
+           physi3rdlayer= new G4PVPlacement(0, G4ThreeVector(0,0,0),"ThirdLayer",
+                          logic3rdlayer,
+                         physiSample,
+                       false,
+                     0);
+           if (OuterRadius>ThirdRadius)
+           {
+               solidOuterlayer= new G4Sphere("Outerlayer",
+                              ThirdRadius, OuterRadius,  0, 360.*degree, 0, 180*degree );
+               logicOuterlayer= new G4LogicalVolume(solidOuterlayer, DenseMixCuCH, "Outerlayer");
+               physiOuterlayer= new G4PVPlacement(0, G4ThreeVector(0,0,0),"Outerlayer",
+                              logicOuterlayer,
+                             physiSample,
+                           false,
+                         0);
+           }
+        }
      }
      G4cout<<"begin region cut"<<G4endl;
 
@@ -1075,8 +1079,8 @@ if (ConstructDetector){
   //logicAllayer->SetVisAttributes(lightGray);
   logicInnerlayer->SetVisAttributes(blue);
   logic2ndlayer->SetVisAttributes(red);
-  logic3rdlayer->SetVisAttributes(lightGray);
-  logicOuterlayer->SetVisAttributes(lightGray);
+  //logic3rdlayer->SetVisAttributes(lightGray);
+  //logicOuterlayer->SetVisAttributes(lightGray);
 
   G4cout << "Finished Visualization" << G4endl;
   if(ConstructDetector)

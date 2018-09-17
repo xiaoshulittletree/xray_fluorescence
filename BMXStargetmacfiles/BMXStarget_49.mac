@@ -10,7 +10,7 @@
 # activating livermore processes
 /phys/addPhysics emlivermore
 # Setting production edges
-/cuts/setLowEdge 250 eV
+/cuts/setLowEdge 1 keV
 
 /run/initialize
 
@@ -30,7 +30,7 @@
 #/analysis/setFileName 2512keV
 
 
-/run/setCut  0.001 mm
+/run/setCut  10 mm
 /run/setCutForRegion target 0.001 mm
 
 #if we want to have an M-Flare Spectrum (default)
