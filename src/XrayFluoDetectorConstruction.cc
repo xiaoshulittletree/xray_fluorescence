@@ -132,10 +132,10 @@ XrayFluoDetectorConstruction::XrayFluoDetectorConstruction()
   Stepthickness = 310. * um;
   Allayerthickness = 50. * um;
 
-  InnerRadius=130*um; //Cu foam r1
-  SecondRadius=160*um;// Dense Cu 20 g/cc 30 um thick r2
-  ThirdRadius=160*um;//MixCuCH 20 g/cc, half mass Cu, half mass CH r3
-  OuterRadius=160*um; //Dense CH 10 g/cc, need to match the total mass
+  InnerRadius=105*um; //MixCuCH
+  SecondRadius=125*um;// DenseMixCuCH
+  ThirdRadius=145*um;//DenseCH 7.25 g/cc,
+  OuterRadius=145*um; //No this layer
 //20*(r2^3-r1^3)+r1^3*1.1+(r3^3-r2^3)*10=212.5^3*1.1 Cu mass conservation
 //(r3^3-r2^3)*10=(212.5^3-182.5^3)*0.87 CH mass convervation
 //when r1=130 um, r2=((212.5^3*1.1-(212.5^3-182.5^3)*0.87)/20+18.9/20*130^3)^(1/3)
@@ -928,7 +928,7 @@ if (ConstructDetector){
         {
            solid3rdlayer= new G4Sphere("ThirdLayer",
                           SecondRadius, ThirdRadius,  0, 360.*degree, 0, 180*degree);
-           logic3rdlayer= new G4LogicalVolume(solid3rdlayer, DenseMixCuCH, "ThirdLayer");
+           logic3rdlayer= new G4LogicalVolume(solid3rdlayer, DenseCH, "ThirdLayer");
 
            physi3rdlayer= new G4PVPlacement(0, G4ThreeVector(0,0,0),"ThirdLayer",
                           logic3rdlayer,
@@ -1050,15 +1050,15 @@ if (ConstructDetector){
   yellow->SetVisibility(true);
   yellow->SetForceSolid(true);
   red->SetVisibility(true);
-  red->SetForceSolid(true);
+//  red->SetForceSolid(true);
   blue->SetVisibility(true);
-  blue->SetForceSolid(true);
+//  blue->SetForceSolid(true);
   green->SetVisibility(true);
   green->SetForceSolid(true);
   grayc->SetVisibility(true);
   grayc->SetForceSolid(true);
   lightGray->SetVisibility(true);
-  lightGray->SetForceSolid(true);
+//  lightGray->SetForceSolid(true);
   simpleBoxVisAtt->SetVisibility(true); //so that it's not solid
   if (!phaseSpaceFlag && logicPixel) {
     logicPixel->SetVisAttributes(red); //modified!!!
@@ -1079,7 +1079,7 @@ if (ConstructDetector){
   //logicAllayer->SetVisAttributes(lightGray);
   logicInnerlayer->SetVisAttributes(blue);
   logic2ndlayer->SetVisAttributes(red);
-  //logic3rdlayer->SetVisAttributes(lightGray);
+  logic3rdlayer->SetVisAttributes(lightGray);
   //logicOuterlayer->SetVisAttributes(lightGray);
 
   G4cout << "Finished Visualization" << G4endl;

@@ -116,10 +116,10 @@ void XrayFluoNistMaterials::CreateMaterials()
 
 
       // Define DenseMixCuCH
-      density = 9.7*g/cm3; // 5.5 CH, 4.2 Cu
-      elements.push_back("Cu");  fractionMass.push_back(0.433); // 4.2/9.7
-      elements.push_back("C");  fractionMass.push_back(0.5234); // 5.5/9.7/13*12
-      elements.push_back("H");  fractionMass.push_back(0.0436); // 5.5/9.7/13
+      density = 7.473*g/cm3; //  5.136 CH, 2.337 Cu
+      elements.push_back("Cu");  fractionMass.push_back(0.3127); // 2.337/7.473 = 0.3127
+      elements.push_back("C");  fractionMass.push_back(0.6344); // 5.136/7.473/13*12=0.6344
+      elements.push_back("H");  fractionMass.push_back(0.0529); // 5.136/7.473/13 = 0.0529
 
 
       G4Material* DenseMixCuCH= nistMan->ConstructNewMaterial("DenseMixCuCH",elements, fractionMass, density);
@@ -130,7 +130,7 @@ void XrayFluoNistMaterials::CreateMaterials()
       density = 1.9946*g/cm3;
       elements.push_back("Cu");  fractionMass.push_back(0.5114);  //
       elements.push_back("C");  fractionMass.push_back(0.4510); //
-      elements.push_back("H");  fractionMass.push_back(0.0376); // 
+      elements.push_back("H");  fractionMass.push_back(0.0376); //
 
 
       G4Material* MixCuCH= nistMan->ConstructNewMaterial("MixCuCH",elements, fractionMass, density);
@@ -149,8 +149,8 @@ void XrayFluoNistMaterials::CreateMaterials()
 
       // Define DenseCH
 
-      density = 10*g/cm3;
-      elements.push_back("C");  fractionMass.push_back(0.923);  // 0.007093 mol/g(mat)
+      density = 7.26*g/cm3;
+      elements.push_back("C");  fractionMass.push_back(0.923); 
       elements.push_back("H");  fractionMass.push_back(0.077);
 
 
