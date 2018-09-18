@@ -42,7 +42,7 @@
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
-XrayFluoSteppingAction::XrayFluoSteppingAction() 
+XrayFluoSteppingAction::XrayFluoSteppingAction()
     :mercuryFlag(false)
 {;}
 
@@ -55,25 +55,26 @@ XrayFluoSteppingAction::~XrayFluoSteppingAction()
 
 void XrayFluoSteppingAction::UserSteppingAction(const G4Step* aStep)
 {
-  XrayFluoAnalysisManager* analysis  = XrayFluoAnalysisManager::getInstance();
-  analysis->analyseStepping(aStep);
-
+  if (aStep->GetPostStepPoint()->GetStepStatus() == fWorldBoundary)
+  {
+      XrayFluoAnalysisManager* analysis  = XrayFluoAnalysisManager::getInstance();
+      analysis->analyseStepping(aStep);
+  }
   if (mercuryFlag){
-    const 
-      XrayFluoMercuryDetectorConstruction* detector = 
+    const
+      XrayFluoMercuryDetectorConstruction* detector =
       XrayFluoMercuryDetectorConstruction::GetInstance();
 
-    if(aStep->GetTrack()->GetNextVolume()) 
-      { 
-	if(aStep->GetTrack()->GetNextVolume()->GetName() == "DetectorOptic") {
-	  G4ThreeVector particlePosition = aStep->GetPostStepPoint()->GetPosition();
-	  G4ThreeVector detectorPosition = detector->GetOptic()->GetObjectTranslation();
-	  G4ThreeVector newDirection = detectorPosition - particlePosition;
-	  aStep->GetPostStepPoint()->SetMomentumDirection(newDirection);
-	}
-      }
+    if(aStep->GetTrack()->GetNextVolume())
+    {
+    	if(aStep->GetTrack()->GetNextVolume()->GetName() == "DetectorOptic") {
+    	  G4ThreeVector particlePosition = aStep->GetPostStepPoint()->GetPosition();
+    	  G4ThreeVector detectorPosition = detector->GetOptic()->GetObjectTranslation();
+    	  G4ThreeVector newDirection = detectorPosition - particlePosition;
+    	  aStep->GetPostStepPoint()->SetMomentumDirection(newDirection);
+    	}
+    }
   }
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
-
