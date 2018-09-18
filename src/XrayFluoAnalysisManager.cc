@@ -277,7 +277,7 @@ void XrayFluoAnalysisManager::analyseStepping(const G4Step* aStep)
 {
   G4AutoLock l(&dataManipulationMutex);
   G4AnalysisManager* man = G4AnalysisManager::Instance();
-phaseSpaceFlag=1;
+  phaseSpaceFlag=1;
   if (phaseSpaceFlag){
     G4ParticleDefinition* particleType= 0;
     G4String parentProcess="";
@@ -288,7 +288,7 @@ phaseSpaceFlag=1;
     G4double particleDepth=0;
     G4int isBornInTheSample=0;
     G4int evtNb = G4EventManager::GetEventManager()->GetConstCurrentEvent()->GetEventID();
-   XrayFluoDetectorConstruction* detector = XrayFluoDetectorConstruction::GetInstance();
+   // XrayFluoDetectorConstruction* detector = XrayFluoDetectorConstruction::GetInstance();
     //if(aStep->GetPostStepPoint()->GetStepStatus() == fGeomBoundary)
     if(aStep->GetPostStepPoint()->GetStepStatus() == fWorldBoundary)
     {
@@ -301,52 +301,48 @@ phaseSpaceFlag=1;
       if (particleType == G4Gamma::Definition()) part =1;
       if (particleType == G4Electron::Definition()) part = 0;
       if (particleType == G4Proton::Definition()) part = 2;
-      if (part!=0 ){
-
-      man->FillNtupleIColumn(1,0, part);
-      man->FillNtupleIColumn(1,1,evtNb);
-  	  man->FillNtupleDColumn(1,2,particleEnergy);
-  	 // man->FillNtupleDColumn(1,3,momentum.theta());
-  	 // man->FillNtupleDColumn(1,4,momentum.phi());
-  	 // man->FillNtupleIColumn(1,4,parent);
-  	 // man->FillNtupleIColumn(1,5,sampleMat);
-  	 // man->FillNtupleIColumn(1,6,isBornInTheSample);
-  	 // man->FillNtupleDColumn(1,7,particleDepth);
-      man->FillNtupleDColumn(1,3,existPos.theta());
-      man->FillNtupleDColumn(1,4,existPos.phi());
-      man->FillNtupleDColumn(1,5,existPos.rho()/m);
-  	  man->AddNtupleRow(1);
-      photonnumber++;
-      if (photonnumber==NtupleDataVolume)
-      {      G4ExceptionDescription execp;
-            execp <<  "Collected enough photons.";
-            G4Exception("XrayFluoAnalysisManger","example-xray_fluorescence04",
-      	  FatalException, execp);
-      }
-
-    }
-    else { //part ==0 , electron
-      if (electronnumber<NtupleDataVolume)
+      if (part!=0 )
       {
-          man->FillNtupleIColumn(2,0, part);
-          man->FillNtupleIColumn(2,1,evtNb);
-          man->FillNtupleDColumn(2,2,particleEnergy);
-        //  man->FillNtupleDColumn(2,3,momentum.theta());
-        //  man->FillNtupleDColumn(2,4,momentum.phi());
-         // man->FillNtupleIColumn(1,4,parent);
-         // man->FillNtupleIColumn(1,5,sampleMat);
-         // man->FillNtupleIColumn(1,6,isBornInTheSample);
-         // man->FillNtupleDColumn(1,7,particleDepth);
-          man->FillNtupleDColumn(2,3,existPos.theta());
-          man->FillNtupleDColumn(2,4,existPos.phi());
-          man->FillNtupleDColumn(2,5,existPos.rho()/m);
-          man->AddNtupleRow(2);
-          electronnumber++;
-    }
-    if (electronnumber==NtupleDataVolume)  man->FillNtupleIColumn(2,0, electronnumber);
-  }
-
-
+            man->FillNtupleIColumn(1,0, part);
+            man->FillNtupleIColumn(1,1,evtNb);
+        	  man->FillNtupleDColumn(1,2,particleEnergy);
+        	 // man->FillNtupleDColumn(1,3,momentum.theta());
+        	 // man->FillNtupleDColumn(1,4,momentum.phi());
+        	 // man->FillNtupleIColumn(1,4,parent);
+        	 // man->FillNtupleIColumn(1,5,sampleMat);
+        	 // man->FillNtupleIColumn(1,6,isBornInTheSample);
+        	 // man->FillNtupleDColumn(1,7,particleDepth);
+            man->FillNtupleDColumn(1,3,existPos.theta());
+            man->FillNtupleDColumn(1,4,existPos.phi());
+            man->FillNtupleDColumn(1,5,existPos.rho()/m);
+        	  man->AddNtupleRow(1);
+            photonnumber++;
+            if (photonnumber==NtupleDataVolume)
+            {      G4ExceptionDescription execp;
+                  execp <<  "Collected enough photons.";
+                  G4Exception("XrayFluoAnalysisManger","example-xray_fluorescence04",
+            	  FatalException, execp);
+            }
+      } else { //part ==0 , electron
+        if (electronnumber<NtupleDataVolume)
+        {
+            man->FillNtupleIColumn(2,0, part);
+            man->FillNtupleIColumn(2,1,evtNb);
+            man->FillNtupleDColumn(2,2,particleEnergy);
+          //  man->FillNtupleDColumn(2,3,momentum.theta());
+          //  man->FillNtupleDColumn(2,4,momentum.phi());
+           // man->FillNtupleIColumn(1,4,parent);
+           // man->FillNtupleIColumn(1,5,sampleMat);
+           // man->FillNtupleIColumn(1,6,isBornInTheSample);
+           // man->FillNtupleDColumn(1,7,particleDepth);
+            man->FillNtupleDColumn(2,3,existPos.theta());
+            man->FillNtupleDColumn(2,4,existPos.phi());
+            man->FillNtupleDColumn(2,5,existPos.rho()/m);
+            man->AddNtupleRow(2);
+            electronnumber++;
+        }
+        if (electronnumber==NtupleDataVolume)  man->FillNtupleIColumn(2,0, electronnumber);
+      }
     }
 
     /*
@@ -423,8 +419,8 @@ phaseSpaceFlag=1;
   }
 */
   // Normal behaviour, without creation of phase space
-}
-  else
+  }
+  else //if not phaseSpace
     {
 
       // Filling the histograms with data, passing thru stepping.
