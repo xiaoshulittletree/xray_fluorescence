@@ -139,6 +139,7 @@ void XrayFluoAnalysisManager::book()
       man->CreateNtupleDColumn("existPosTheta");
       man->CreateNtupleDColumn("existPosPhi");
       man->CreateNtupleDColumn("existPosRho");
+      man->CreateNtupleDColumn("PrimaryMomentumTheta");
 
   //   man->CreateNtupleIColumn("processes");
   //    man->CreateNtupleIColumn("material");
@@ -157,6 +158,8 @@ void XrayFluoAnalysisManager::book()
       man->CreateNtupleDColumn("existPosTheta");
       man->CreateNtupleDColumn("existPosPhi");
       man->CreateNtupleDColumn("existPosRho");
+      man->CreateNtupleDColumn("PrimaryMomentumTheta");
+
   //   man->CreateNtupleIColumn("processes");
   //    man->CreateNtupleIColumn("material");
   //    man->CreateNtupleIColumn("origin");
@@ -288,6 +291,7 @@ void XrayFluoAnalysisManager::analyseStepping(const G4Step* aStep)
     G4double particleDepth=0;
     G4int isBornInTheSample=0;
     G4int evtNb = G4EventManager::GetEventManager()->GetConstCurrentEvent()->GetEventID();
+    G4ThreeVector primarymomentum(0,0,0);
    // XrayFluoDetectorConstruction* detector = XrayFluoDetectorConstruction::GetInstance();
     //if(aStep->GetPostStepPoint()->GetStepStatus() == fGeomBoundary)
     if(aStep->GetPostStepPoint()->GetStepStatus() == fWorldBoundary)
@@ -296,7 +300,7 @@ void XrayFluoAnalysisManager::analyseStepping(const G4Step* aStep)
       momentum = aStep->GetTrack()->GetDynamicParticle()->GetMomentum();
       particleEnergy = aStep->GetPreStepPoint()->GetKineticEnergy();
       existPos=aStep->GetPostStepPoint()->GetPosition();
-
+      primarymomentum = G4EventManager::GetEventManager()->GetConstCurrentEvent()->GetPrimaryVertex()->GetPrimary()->GetMomentumDirection();
       G4int part = -1 ;
       if (particleType == G4Gamma::Definition()) part =1;
       if (particleType == G4Electron::Definition()) part = 0;
@@ -315,6 +319,7 @@ void XrayFluoAnalysisManager::analyseStepping(const G4Step* aStep)
             man->FillNtupleDColumn(1,3,existPos.theta());
             man->FillNtupleDColumn(1,4,existPos.phi());
             man->FillNtupleDColumn(1,5,existPos.rho()/m);
+            man->FillNtupleDColumn(1,6,primarymomentum.theta());
         	  man->AddNtupleRow(1);
             photonnumber++;
             if (photonnumber==NtupleDataVolume)
@@ -338,6 +343,7 @@ void XrayFluoAnalysisManager::analyseStepping(const G4Step* aStep)
             man->FillNtupleDColumn(2,3,existPos.theta());
             man->FillNtupleDColumn(2,4,existPos.phi());
             man->FillNtupleDColumn(2,5,existPos.rho()/m);
+            man->FillNtupleDColumn(1,6,primarymomentum.theta());
             man->AddNtupleRow(2);
             electronnumber++;
         }

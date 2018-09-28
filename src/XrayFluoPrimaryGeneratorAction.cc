@@ -142,11 +142,17 @@ void XrayFluoPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
   //G4double z0 = -0.5*(XrayFluoDetector->GetWorldSizeZ());
 	G4double z0 = -200* um;
   G4double y0 = 0.*cm, x0 = 0.*cm;
+	G4double costheta=G4UniformRand();
+	G4double Dz=costheta;
+	G4double Dx=std::sqrt(1-costheta*costheta);
+	G4double Dy=0;
   if (rndmFlag == "on")
     {
       y0 = (XrayFluoDetector->GetDia3SizeXY())/std::sqrt(2.)*(G4UniformRand()-0.5); // it was GetSampleSizeXY(),
       x0 = (XrayFluoDetector->GetDia3SizeXY())/std::sqrt(2.)*(G4UniformRand()-0.5); // not divided by std::sqrt(2.)
     }
+
+	particleGun->SetParticleMomentumDirection(G4ThreeVector(Dx,Dy,Dz));
   particleGun->SetParticlePosition(G4ThreeVector(x0,y0,z0));
 
   //randomize starting point
