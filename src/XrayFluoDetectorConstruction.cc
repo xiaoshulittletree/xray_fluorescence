@@ -118,7 +118,7 @@ XrayFluoDetectorConstruction::XrayFluoDetectorConstruction()
   G4cout << "PixelSizeXY(cm): "<< PixelSizeXY/cm << G4endl;
 
   ContactSizeXY     = PixelSizeXY; //std::sqrt(40) * mm; //should be the same as PixelSizeXY
-  SampleThickness = 1 * mm;
+  SampleThickness = 0.21 * mm;
   SampleSizeXY = 3. * mm; //need to change to 5 mm it's the diameter of the target.
   Dia1Thickness = 1. *mm;
   Dia3Thickness = 1. *mm;
@@ -829,7 +829,7 @@ if (ConstructDetector){
 					 "Sample");	//its name
 
 	physiSample = new G4PVPlacement(0,			//no rotation
-					G4ThreeVector(0,0,0),	//at (0,0,0)
+					G4ThreeVector(0,0,+SampleThickness/2),	//at (0,0,0)
 					"Sample",	//its name
 					logicSample,	//its logical volume
 					physiWorld,	//its mother  volume
@@ -842,7 +842,7 @@ if (ConstructDetector){
                    //25 um thickness, start from 0, segment angle 360.
     logicAblator= new G4LogicalVolume(solidAblator, CH, "Ablator");
     //need to set CH material
-    physiAblator= new G4PVPlacement(0, G4ThreeVector(0,0,Ablatorthickness/2),"Ablator",
+    physiAblator= new G4PVPlacement(0, G4ThreeVector(0,0,Ablatorthickness/2-SampleThickness/2),"Ablator",
                   logicAblator,
                   physiSample,
                   false,
@@ -854,7 +854,7 @@ if (ConstructDetector){
                   //25 um thickness, start from 0, segment angle 360.
    logicCulayer= new G4LogicalVolume(solidCulayer, Cu, "Culayer");
    //need to set Cu material
-   physiCulayer= new G4PVPlacement(0, G4ThreeVector(0,0,Ablatorthickness+Culayerthickness/2),"Culayer",
+   physiCulayer= new G4PVPlacement(0, G4ThreeVector(0,0,Ablatorthickness+Culayerthickness/2-SampleThickness/2),"Culayer",
                   logicCulayer,
                  physiSample,
                false,
@@ -865,7 +865,7 @@ if (ConstructDetector){
                   //inner radus 0, Outer radius half of SampleSizeXY,
                   //25 um thickness, start from 0, segment angle 360.
    logicAllayer= new G4LogicalVolume(solidAllayer, Al, "Allayer");
-   physiAllayer= new G4PVPlacement(0, G4ThreeVector(0,0,Ablatorthickness+Culayerthickness+Allayerthickness/2),"Allayer",
+   physiAllayer= new G4PVPlacement(0, G4ThreeVector(0,0,Ablatorthickness+Culayerthickness+Allayerthickness/2-SampleThickness/2),"Allayer",
                   logicAllayer,
                  physiSample,
                false,
