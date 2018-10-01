@@ -144,7 +144,11 @@ void XrayFluoPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
   G4double y0 = 0.*cm, x0 = 0.*cm;
 	G4double costheta=G4UniformRand();
 	G4double Dz=costheta;
+<<<<<<< HEAD
 	G4double Dx=std::sqrt(1-costheta*costheta);
+=======
+	G4double Dx=1-costheta**costheta;
+>>>>>>> eed3b63c2645a573042d2b948c08738b4e488c19
 	G4double Dy=0;
   if (rndmFlag == "on")
     {
