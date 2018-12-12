@@ -52,6 +52,8 @@
 #include "G4Proton.hh"
 #include "G4SystemOfUnits.hh"
 
+#include "G4RunManager.hh"//Added to get event ID
+
 
 XrayFluoAnalysisManager* XrayFluoAnalysisManager::instance = 0;
 
@@ -70,7 +72,8 @@ namespace {
 
 XrayFluoAnalysisManager::XrayFluoAnalysisManager()
   :outputFileName("xrayfluo"), phaseSpaceFlag(true), physicFlag (false),
-   gunParticleEnergies(0), gunParticleTypes(0)
+   gunParticleEnergies(0), gunParticleTypes(0), photonnumber(0),
+  electronnumber(0)
 {
   dataLoaded = false;
   fParticleEnergyAndTypeIndex = 0;
@@ -92,6 +95,7 @@ XrayFluoAnalysisManager::~XrayFluoAnalysisManager()
   gunParticleEnergies = 0;
   if ( gunParticleTypes ) delete gunParticleTypes;
   gunParticleTypes = 0;
+
   delete instance;
   instance = 0;
 
@@ -126,11 +130,12 @@ void XrayFluoAnalysisManager::book()
   if (phaseSpaceFlag)
     {
       // Book output Tuple (ID = 1)
-      man->CreateNtuple("101","OutputNTuple");
+      man->CreateNtuple("gamma","photon OutputNTuple");
       man->CreateNtupleIColumn("particle"); //int
+      man->CreateNtupleIColumn("eventID");
       man->CreateNtupleDColumn("energies"); //double
-      man->CreateNtupleDColumn("momentumTheta");
-      man->CreateNtupleDColumn("momentumPhi");
+    //  man->CreateNtupleDColumn("momentumTheta");
+    //  man->CreateNtupleDColumn("momentumPhi");
       man->CreateNtupleDColumn("existPosTheta");
       man->CreateNtupleDColumn("existPosPhi");
       man->CreateNtupleDColumn("existPosRho");
@@ -140,12 +145,31 @@ void XrayFluoAnalysisManager::book()
   //    man->CreateNtupleIColumn("origin");
   //    man->CreateNtupleDColumn("depth");
       man->FinishNtuple();
-      G4cout << "Created ntuple for phase space" << G4endl;
+      G4cout << "Created phase space ntuple for photon or proton" << G4endl;
+
+      //Creat second ntuple for electron
+      man->CreateNtuple("e-","e- OutputNTuple");
+      man->CreateNtupleIColumn("particle"); //int
+      man->CreateNtupleIColumn("eventID");
+      man->CreateNtupleDColumn("energies"); //double
+      //man->CreateNtupleDColumn("momentumTheta");
+      //man->CreateNtupleDColumn("momentumPhi");
+      man->CreateNtupleDColumn("existPosTheta");
+      man->CreateNtupleDColumn("existPosPhi");
+      man->CreateNtupleDColumn("existPosRho");
+  //   man->CreateNtupleIColumn("processes");
+  //    man->CreateNtupleIColumn("material");
+  //    man->CreateNtupleIColumn("origin");
+  //    man->CreateNtupleDColumn("depth");
+      man->FinishNtuple();
+      G4cout << "Created phase space ntuple for electron" << G4endl;
+      man->OpenFile(outputFileName);  // it won't work if I do not open it again.
+
+
     }
   else {
     // Book histograms
     //500 bins, minimum 0, maximum 10 keV.
-
     man->CreateH1("h1","Energy Deposit", 500,0.,200.); //
   //  man->CreateH1("h2","Gamma born in the sample", 100,0.,200.);
   //  man->CreateH1("h3","Electrons  born in the sample", 100,0.,200.);
@@ -163,7 +187,7 @@ void XrayFluoAnalysisManager::book()
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
-
+//Not useful until call /gun/loadGunData, see Primary
 void XrayFluoAnalysisManager::LoadGunData(G4String fileName, G4bool raileighFlag)
 {
   G4AutoLock l(&dataManipulationMutex);
@@ -174,7 +198,7 @@ void XrayFluoAnalysisManager::LoadGunData(G4String fileName, G4bool raileighFlag
 
   // Get analysis reader manager
   G4AnalysisReader* analysisReader = G4AnalysisReader::Instance();
-  analysisReader->SetVerboseLevel(1);
+  analysisReader->SetVerboseLevel(4);
 
   //This is for testing purposes
   G4int ntupleId = analysisReader->GetNtuple("101",fileName);
@@ -253,7 +277,7 @@ void XrayFluoAnalysisManager::analyseStepping(const G4Step* aStep)
 {
   G4AutoLock l(&dataManipulationMutex);
   G4AnalysisManager* man = G4AnalysisManager::Instance();
-phaseSpaceFlag=1;
+  phaseSpaceFlag=1;
   if (phaseSpaceFlag){
     G4ParticleDefinition* particleType= 0;
     G4String parentProcess="";
@@ -263,7 +287,8 @@ phaseSpaceFlag=1;
     G4String sampleMaterial="";
     G4double particleDepth=0;
     G4int isBornInTheSample=0;
-    XrayFluoDetectorConstruction* detector = XrayFluoDetectorConstruction::GetInstance();
+    G4int evtNb = G4EventManager::GetEventManager()->GetConstCurrentEvent()->GetEventID();
+   // XrayFluoDetectorConstruction* detector = XrayFluoDetectorConstruction::GetInstance();
     //if(aStep->GetPostStepPoint()->GetStepStatus() == fGeomBoundary)
     if(aStep->GetPostStepPoint()->GetStepStatus() == fWorldBoundary)
     {
@@ -276,20 +301,48 @@ phaseSpaceFlag=1;
       if (particleType == G4Gamma::Definition()) part =1;
       if (particleType == G4Electron::Definition()) part = 0;
       if (particleType == G4Proton::Definition()) part = 2;
-
-      man->FillNtupleIColumn(1,0, part);
-  	  man->FillNtupleDColumn(1,1,particleEnergy);
-  	  man->FillNtupleDColumn(1,2,momentum.theta());
-  	  man->FillNtupleDColumn(1,3,momentum.phi());
-  	 // man->FillNtupleIColumn(1,4,parent);
-  	 // man->FillNtupleIColumn(1,5,sampleMat);
-  	 // man->FillNtupleIColumn(1,6,isBornInTheSample);
-  	 // man->FillNtupleDColumn(1,7,particleDepth);
-      man->FillNtupleDColumn(1,4,existPos.theta());
-      man->FillNtupleDColumn(1,5,existPos.phi());
-      man->FillNtupleDColumn(1,6,existPos.rho()/m);
-  	  man->AddNtupleRow(1);
-
+      if (part!=0 )
+      {
+            man->FillNtupleIColumn(1,0, part);
+            man->FillNtupleIColumn(1,1,evtNb);
+        	  man->FillNtupleDColumn(1,2,particleEnergy);
+        	 // man->FillNtupleDColumn(1,3,momentum.theta());
+        	 // man->FillNtupleDColumn(1,4,momentum.phi());
+        	 // man->FillNtupleIColumn(1,4,parent);
+        	 // man->FillNtupleIColumn(1,5,sampleMat);
+        	 // man->FillNtupleIColumn(1,6,isBornInTheSample);
+        	 // man->FillNtupleDColumn(1,7,particleDepth);
+            man->FillNtupleDColumn(1,3,existPos.theta());
+            man->FillNtupleDColumn(1,4,existPos.phi());
+            man->FillNtupleDColumn(1,5,existPos.rho()/m);
+        	  man->AddNtupleRow(1);
+            photonnumber++;
+            if (photonnumber==NtupleDataVolume)
+            {      G4ExceptionDescription execp;
+                  execp <<  "Collected enough photons.";
+                  G4Exception("XrayFluoAnalysisManger","example-xray_fluorescence04",
+            	  FatalException, execp);
+            }
+      } else { //part ==0 , electron
+        if (electronnumber<NtupleDataVolume)
+        {
+            man->FillNtupleIColumn(2,0, part);
+            man->FillNtupleIColumn(2,1,evtNb);
+            man->FillNtupleDColumn(2,2,particleEnergy);
+          //  man->FillNtupleDColumn(2,3,momentum.theta());
+          //  man->FillNtupleDColumn(2,4,momentum.phi());
+           // man->FillNtupleIColumn(1,4,parent);
+           // man->FillNtupleIColumn(1,5,sampleMat);
+           // man->FillNtupleIColumn(1,6,isBornInTheSample);
+           // man->FillNtupleDColumn(1,7,particleDepth);
+            man->FillNtupleDColumn(2,3,existPos.theta());
+            man->FillNtupleDColumn(2,4,existPos.phi());
+            man->FillNtupleDColumn(2,5,existPos.rho()/m);
+            man->AddNtupleRow(2);
+            electronnumber++;
+        }
+        if (electronnumber==NtupleDataVolume)  man->FillNtupleIColumn(2,0, electronnumber);
+      }
     }
 
     /*
@@ -366,8 +419,8 @@ phaseSpaceFlag=1;
   }
 */
   // Normal behaviour, without creation of phase space
-}
-  else
+  }
+  else //if not phaseSpace
     {
 
       // Filling the histograms with data, passing thru stepping.
@@ -524,4 +577,9 @@ void XrayFluoAnalysisManager::SetOutputFileName(G4String newName)
 {
 
   outputFileName = newName;
+}
+
+void XrayFluoAnalysisManager::SetDataVolume(G4int DataVolume)
+{
+  NtupleDataVolume=DataVolume;
 }
