@@ -119,15 +119,20 @@ XrayFluoDetectorConstruction::XrayFluoDetectorConstruction()
 
   ContactSizeXY     = PixelSizeXY; //std::sqrt(40) * mm; //should be the same as PixelSizeXY
   SampleThickness = 1 * mm;
-  SampleSizeXY = 3. * mm; //need to change to 5 mm it's the diameter of the target.
+  SampleSizeXY = 0.6 * mm; //need to change to 5 mm it's the diameter of the target.
   Dia1Thickness = 1. *mm;
   Dia3Thickness = 1. *mm;
   Dia1SizeXY = 3. *cm;
   Dia3SizeXY = 3. *cm;
 
   Ablatorthickness = 140. * um;
-  Culayerthickness = 20. * um;
-  Allayerthickness = 50. * um;
+  Culayerthickness = 10. * um;
+  Allayerthickness = 8. * um;
+  Znlayerthickness = 10.0 * um;
+  CHfoamthickness  = 600.0 * um;
+  Cylinderthickness = 20.0 * um;
+
+
 
   filtersizeXY=2.5*cm;
   Teflonthickness=10*mm;
@@ -279,6 +284,7 @@ void XrayFluoDetectorConstruction::DefineDefaultMaterials()
   CH = materials->GetMaterial("G4_POLYSTYRENE");
   Cu = materials->GetMaterial("G4_Cu");
   Al = materials->GetMaterial("G4_Al");
+  Zn = materials->GetMaterial("G4_Zn");
   Pb = materials->GetMaterial("G4_Pb");
   Teflon = materials-> GetMaterial("G4_TEFLON");
   Mylar = materials -> GetMaterial("G4_MYLAR");
@@ -289,6 +295,7 @@ void XrayFluoDetectorConstruction::DefineDefaultMaterials()
   Sn = materials -> GetMaterial("G4_Sn");
   Ta = materials -> GetMaterial("G4_Ta");
   Au = materials -> GetMaterial("G4_Au");
+  CHfoamCl=materials -> GetMaterial("CHfoamCl");
 
     G4Material*  filtermateriallist[15];
     filtermateriallist[0]=materials->GetMaterial("G4_Al");
@@ -821,29 +828,61 @@ if (ConstructDetector){
     solidSample=0;  logicSample=0;  physiSample=0;
     if (SampleThickness > 0.)
       {
-	solidSample = new G4Box("Sample",		//its name
-				SampleSizeXY/2,SampleSizeXY/2,SampleThickness/2);//size
+  	solidSample = new G4Box("Sample",		//its name
+  				SampleSizeXY/2,SampleSizeXY/2,SampleThickness/2);//size
 
-	logicSample= new G4LogicalVolume(solidSample,	//its solid
-					 defaultMaterial,	//its material
-					 "Sample");	//its name
+  	logicSample= new G4LogicalVolume(solidSample,	//its solid
+  					 defaultMaterial,	//its material
+  					 "Sample");	//its name
 
-	physiSample = new G4PVPlacement(0,			//no rotation
-					G4ThreeVector(0,0,0),	//at (0,0,0)
-					"Sample",	//its name
-					logicSample,	//its logical volume
-					physiWorld,	//its mother  volume
-					false,		//no boolean operation
-					0);		//copy number
-
-    solidAblator= new G4Tubs("Ablator",
-                   0, SampleSizeXY/2, Ablatorthickness/2, 0, 360.*degree ); // name Ablator,
+  	physiSample = new G4PVPlacement(0,			//no rotation
+  					G4ThreeVector(0,0,0),	//at (0,0,0)
+  					"Sample",	//its name
+  					logicSample,	//its logical volume
+  					physiWorld,	//its mother  volume
+  					false,		//no boolean operation
+  					0);		//copy number
+    solidAllayer= new G4Tubs("Allayer",
+                   0, SampleSizeXY/2, Allayerthickness/2, 0, 360.*degree ); // name Allayer,
                    //inner radus 0, Outer radius half of SampleSizeXY,
                    //25 um thickness, start from 0, segment angle 360.
-    logicAblator= new G4LogicalVolume(solidAblator, CH, "Ablator");
+    logicAllayer= new G4LogicalVolume(solidAllayer, Al, "Allayer");
+    physiAllayer= new G4PVPlacement(0, G4ThreeVector(0,0,-CHfoamthickness/2-Znlayerthickness-Allayerthickness/2),"Allayer",
+                   logicAllayer,
+                  physiSample,
+                false,
+              0);
+
+    solidZnlayer= new G4Tubs("Znlayer",
+                   0, SampleSizeXY/2, Znlayerthickness/2, 0, 360.*degree ); // name Ablator,
+                   //inner radus 0, Outer radius half of SampleSizeXY,
+                   //25 um thickness, start from 0, segment angle 360.
+    logicZnlayer= new G4LogicalVolume(solidZnlayer, Zn, "Allayer");
     //need to set CH material
-    physiAblator= new G4PVPlacement(0, G4ThreeVector(0,0,Ablatorthickness/2),"Ablator",
-                  logicAblator,
+    physiZnlayer= new G4PVPlacement(0, G4ThreeVector(0,0,-CHfoamthickness/2-Znlayerthickness/2),"Znlayer",
+                  logicZnlayer,
+                  physiSample,
+                  false,
+                  0);
+    solidCHfoam= new G4Tubs("CHfoam",
+                   0, SampleSizeXY/2-Cylinderthickness, CHfoamthickness/2, 0, 360.*degree ); // name Ablator,
+                   //inner radus 0, Outer radius half of SampleSizeXY,
+                   //25 um thickness, start from 0, segment angle 360.
+    logicCHfoam= new G4LogicalVolume(solidCHfoam, CHfoamCl, "CHfoam");
+    //need to set CH material
+    physiCHfoam= new G4PVPlacement(0, G4ThreeVector(0,0,0),"CHfoam",
+                  logicCHfoam,
+                  physiSample,
+                  false,
+                  0);
+    solidCHCylinder= new G4Tubs("CHCylinder",
+                  SampleSizeXY/2-Cylinderthickness,SampleSizeXY/2, CHfoamthickness/2, 0, 360.*degree ); // name Ablator,
+                   //inner radus 0, Outer radius half of SampleSizeXY,
+                   //25 um thickness, start from 0, segment angle 360.
+    logicCHCylinder= new G4LogicalVolume(solidCHCylinder, CH, "CHCylinder");
+    //need to set CH material
+    physiCHCylinder= new G4PVPlacement(0, G4ThreeVector(0,0,0),"CHCylinder",
+                  logicCHCylinder,
                   physiSample,
                   false,
                   0);
@@ -854,19 +893,8 @@ if (ConstructDetector){
                   //25 um thickness, start from 0, segment angle 360.
    logicCulayer= new G4LogicalVolume(solidCulayer, Cu, "Culayer");
    //need to set Cu material
-   physiCulayer= new G4PVPlacement(0, G4ThreeVector(0,0,Ablatorthickness+Culayerthickness/2),"Culayer",
+   physiCulayer= new G4PVPlacement(0, G4ThreeVector(0,0,CHfoamthickness/2+Culayerthickness/2),"Culayer",
                   logicCulayer,
-                 physiSample,
-               false,
-             0);
-
-   solidAllayer= new G4Tubs("Allayer",
-                  0, SampleSizeXY/2, Allayerthickness/2, 0, 360.*degree ); // name Allayer,
-                  //inner radus 0, Outer radius half of SampleSizeXY,
-                  //25 um thickness, start from 0, segment angle 360.
-   logicAllayer= new G4LogicalVolume(solidAllayer, Al, "Allayer");
-   physiAllayer= new G4PVPlacement(0, G4ThreeVector(0,0,Ablatorthickness+Culayerthickness+Allayerthickness/2),"Allayer",
-                  logicAllayer,
                  physiSample,
                false,
              0);
@@ -997,7 +1025,7 @@ if (ConstructDetector){
     logicWindow->SetVisAttributes(green);
 
   }
-  logicAblator->SetVisAttributes(blue);
+  logicCHfoam->SetVisAttributes(blue);
   logicCulayer->SetVisAttributes(red);
   logicAllayer->SetVisAttributes(lightGray);
   G4cout << "Finished Visualization" << G4endl;

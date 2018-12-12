@@ -192,7 +192,15 @@ private:
   G4LogicalVolume*   logicAllayer;    //pointer to the logical Allayer
   G4VPhysicalVolume* physiAllayer;    //pointer to the physical Allayer”
 
-
+  G4Tubs*             solidZnlayer;    //pointer to the solid Allayer
+  G4LogicalVolume*    logicZnlayer;    //pointer to the logical Allayer
+  G4VPhysicalVolume*  physiZnlayer;
+  G4Tubs*             solidCHCylinder;    //pointer to the solid Allayer
+  G4LogicalVolume*    logicCHCylinder;    //pointer to the logical Allayer
+  G4VPhysicalVolume*  physiCHCylinder;
+  G4Tubs*             solidCHfoam;    //pointer to the solid Allayer
+  G4LogicalVolume*    logicCHfoam;    //pointer to the logical Allayer
+  G4VPhysicalVolume*  physiCHfoam; 
 
   G4Tubs*             solidDia1; //pointer to the solid  Diaphragm
   G4LogicalVolume*   logicDia1; //pointer to the logical  Diaphragm
@@ -270,6 +278,8 @@ private:
   G4Material*        Sn;
   G4Material*        Ta;
   G4Material*        Au;
+  G4Material*        CHfoamCl;
+  G4Material*        Zn;
 
 
 
@@ -322,6 +332,9 @@ private:
   G4double           Ablatorthickness;
   G4double           Culayerthickness;
   G4double           Allayerthickness;
+  G4double           Znlayerthickness;
+  G4double           CHfoamthickness;
+  G4double           Cylinderthickness;
 
   G4double           filtersizeXY;
   G4double           Teflonthickness;
@@ -361,8 +374,8 @@ private:
   G4double           PhiHPGe;
   G4double           PhiDia1;
   G4double           PhiDia3;
-  G4double AlphaDia1;
-  G4double AlphaDia3;
+  G4double           AlphaDia1;
+  G4double           AlphaDia3;
 
 
   G4RotationMatrix   zRotPhiHPGe;
