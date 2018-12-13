@@ -129,50 +129,26 @@ void XrayFluoAnalysisManager::book()
 
   if (phaseSpaceFlag)
     {
+      // need  postpoint z, preStepPoint z, postStepPoint energy, particle ID, GetEventID
       // Book output Tuple (ID = 1)
-      man->CreateNtuple("gamma","photon OutputNTuple");
+      man->CreateNtuple("Everything","Everything OutputNTuple");
       man->CreateNtupleIColumn("particle"); //int
       man->CreateNtupleIColumn("eventID");
       man->CreateNtupleDColumn("energies"); //double
-    //  man->CreateNtupleDColumn("momentumTheta");
-    //  man->CreateNtupleDColumn("momentumPhi");
-      man->CreateNtupleDColumn("existPosTheta");
-      man->CreateNtupleDColumn("existPosPhi");
-      man->CreateNtupleDColumn("existPosRho");
-<<<<<<< HEAD
+      man->CreateNtupleDColumn("Prepointz");
+      man->CreateNtupleDColumn("Postpointz");
       man->CreateNtupleDColumn("PrimaryMomentumTheta");
-=======
-      man->CreateNtupleDColumn("PrimaryMomentumTheta")
->>>>>>> eed3b63c2645a573042d2b948c08738b4e488c19
+      man->CreateNtupleDColumn("PrimaryEnergy");
+
+
 
   //   man->CreateNtupleIColumn("processes");
   //    man->CreateNtupleIColumn("material");
   //    man->CreateNtupleIColumn("origin");
   //    man->CreateNtupleDColumn("depth");
       man->FinishNtuple();
-      G4cout << "Created phase space ntuple for photon or proton" << G4endl;
 
-      //Creat second ntuple for electron
-      man->CreateNtuple("e-","e- OutputNTuple");
-      man->CreateNtupleIColumn("particle"); //int
-      man->CreateNtupleIColumn("eventID");
-      man->CreateNtupleDColumn("energies"); //double
-      //man->CreateNtupleDColumn("momentumTheta");
-      //man->CreateNtupleDColumn("momentumPhi");
-      man->CreateNtupleDColumn("existPosTheta");
-      man->CreateNtupleDColumn("existPosPhi");
-      man->CreateNtupleDColumn("existPosRho");
-<<<<<<< HEAD
-      man->CreateNtupleDColumn("PrimaryMomentumTheta");
-=======
-      man->CreateNtupleDColumn("PrimaryMomentumTheta")
->>>>>>> eed3b63c2645a573042d2b948c08738b4e488c19
 
-  //   man->CreateNtupleIColumn("processes");
-  //    man->CreateNtupleIColumn("material");
-  //    man->CreateNtupleIColumn("origin");
-  //    man->CreateNtupleDColumn("depth");
-      man->FinishNtuple();
       G4cout << "Created phase space ntuple for electron" << G4endl;
       man->OpenFile(outputFileName);  // it won't work if I do not open it again.
 
@@ -294,31 +270,31 @@ void XrayFluoAnalysisManager::analyseStepping(const G4Step* aStep)
     G4String parentProcess="";
     G4ThreeVector momentum(0.,0.,0.);
     G4ThreeVector existPos(0,0,0);
+    G4ThreeVector prePos(0,0,0);
     G4double particleEnergy=0;
     G4String sampleMaterial="";
     G4double particleDepth=0;
     G4int isBornInTheSample=0;
     G4int evtNb = G4EventManager::GetEventManager()->GetConstCurrentEvent()->GetEventID();
     G4ThreeVector primarymomentum(0,0,0);
+    G4double primaryEnergy=0;
    // XrayFluoDetectorConstruction* detector = XrayFluoDetectorConstruction::GetInstance();
     //if(aStep->GetPostStepPoint()->GetStepStatus() == fGeomBoundary)
-    if(aStep->GetPostStepPoint()->GetStepStatus() == fWorldBoundary)
-    {
+
       particleType = aStep->GetTrack()->GetDynamicParticle()->GetDefinition();
       momentum = aStep->GetTrack()->GetDynamicParticle()->GetMomentum();
-      particleEnergy = aStep->GetPreStepPoint()->GetKineticEnergy();
+      particleEnergy = aStep->GetPostStepPoint()->GetKineticEnergy();
       existPos=aStep->GetPostStepPoint()->GetPosition();
-<<<<<<< HEAD
+      prePos = aStep->GetPreStepPoint()->GetPosition();
+
       primarymomentum = G4EventManager::GetEventManager()->GetConstCurrentEvent()->GetPrimaryVertex()->GetPrimary()->GetMomentumDirection();
-=======
-      primarymomentum = G4RunManager::GetCurrentEvent()->GetPrimaryVertex()->GetPrimary()->GetMomentumDirection()
->>>>>>> eed3b63c2645a573042d2b948c08738b4e488c19
+      primaryEnergy = G4EventManager::GetEventManager()->GetConstCurrentEvent()->GetPrimaryVertex()->GetPrimary()->GetKineticEnergy();
+
       G4int part = -1 ;
       if (particleType == G4Gamma::Definition()) part =1;
       if (particleType == G4Electron::Definition()) part = 0;
       if (particleType == G4Proton::Definition()) part = 2;
-      if (part!=0 )
-      {
+
             man->FillNtupleIColumn(1,0, part);
             man->FillNtupleIColumn(1,1,evtNb);
         	  man->FillNtupleDColumn(1,2,particleEnergy);
@@ -328,40 +304,15 @@ void XrayFluoAnalysisManager::analyseStepping(const G4Step* aStep)
         	 // man->FillNtupleIColumn(1,5,sampleMat);
         	 // man->FillNtupleIColumn(1,6,isBornInTheSample);
         	 // man->FillNtupleDColumn(1,7,particleDepth);
-            man->FillNtupleDColumn(1,3,existPos.theta());
-            man->FillNtupleDColumn(1,4,existPos.phi());
-            man->FillNtupleDColumn(1,5,existPos.rho()/m);
-            man->FillNtupleDColumn(1,6,primarymomentum.theta());
+           man->FillNtupleDColumn(1,3,prePos.getZ());
+            man->FillNtupleDColumn(1,4,existPos.getZ());
+            man->FillNtupleDColumn(1,5,primarymomentum.theta());
+            man->FillNtupleDColumn(1,6,primaryEnergy);
+
         	  man->AddNtupleRow(1);
-            photonnumber++;
-            if (photonnumber==NtupleDataVolume)
-            {      G4ExceptionDescription execp;
-                  execp <<  "Collected enough photons.";
-                  G4Exception("XrayFluoAnalysisManger","example-xray_fluorescence04",
-            	  FatalException, execp);
-            }
-      } else { //part ==0 , electron
-        if (electronnumber<NtupleDataVolume)
-        {
-            man->FillNtupleIColumn(2,0, part);
-            man->FillNtupleIColumn(2,1,evtNb);
-            man->FillNtupleDColumn(2,2,particleEnergy);
-          //  man->FillNtupleDColumn(2,3,momentum.theta());
-          //  man->FillNtupleDColumn(2,4,momentum.phi());
-           // man->FillNtupleIColumn(1,4,parent);
-           // man->FillNtupleIColumn(1,5,sampleMat);
-           // man->FillNtupleIColumn(1,6,isBornInTheSample);
-           // man->FillNtupleDColumn(1,7,particleDepth);
-            man->FillNtupleDColumn(2,3,existPos.theta());
-            man->FillNtupleDColumn(2,4,existPos.phi());
-            man->FillNtupleDColumn(2,5,existPos.rho()/m);
-            man->FillNtupleDColumn(1,6,primarymomentum.theta());
-            man->AddNtupleRow(2);
-            electronnumber++;
-        }
-        if (electronnumber==NtupleDataVolume)  man->FillNtupleIColumn(2,0, electronnumber);
-      }
-    }
+
+
+
 
     /*
     // Select volume from which the step starts

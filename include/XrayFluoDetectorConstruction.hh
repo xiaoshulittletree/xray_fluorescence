@@ -270,6 +270,9 @@ private:
   G4Material*        Sn;
   G4Material*        Ta;
   G4Material*        Au;
+  G4Material*        Phosphorescence;
+  G4Material*        SupportPlastic;
+  G4Material*        Magnet;
 
 
 

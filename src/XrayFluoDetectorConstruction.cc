@@ -118,16 +118,16 @@ XrayFluoDetectorConstruction::XrayFluoDetectorConstruction()
   G4cout << "PixelSizeXY(cm): "<< PixelSizeXY/cm << G4endl;
 
   ContactSizeXY     = PixelSizeXY; //std::sqrt(40) * mm; //should be the same as PixelSizeXY
-  SampleThickness = 0.21 * mm;
-  SampleSizeXY = 3. * mm; //need to change to 5 mm it's the diameter of the target.
+  SampleThickness = 460.0 * um;
+  SampleSizeXY = 5. * mm; //need to change to 5 mm it's the diameter of the target.
   Dia1Thickness = 1. *mm;
   Dia3Thickness = 1. *mm;
   Dia1SizeXY = 3. *cm;
   Dia3SizeXY = 3. *cm;
 
-  Ablatorthickness = 140. * um;
-  Culayerthickness = 20. * um;
-  Allayerthickness = 50. * um;
+  Ablatorthickness = 50. * um;
+  Culayerthickness = 250. * um;
+  Allayerthickness = 160. * um;
 
   filtersizeXY=2.5*cm;
   Teflonthickness=10*mm;
@@ -288,7 +288,9 @@ void XrayFluoDetectorConstruction::DefineDefaultMaterials()
   Ag = materials -> GetMaterial("G4_Ag");
   Sn = materials -> GetMaterial("G4_Sn");
   Ta = materials -> GetMaterial("G4_Ta");
-  Au = materials -> GetMaterial("G4_Au");
+  Phosphorescence = materials -> GetMaterial("Phosphorescence");
+  SupportPlastic = materials -> GetMaterial("SupportPlastic");
+  Magnet = materials -> GetMaterial("Magnet");
 
     G4Material*  filtermateriallist[15];
     filtermateriallist[0]=materials->GetMaterial("G4_Al");
@@ -836,11 +838,11 @@ if (ConstructDetector){
 					false,		//no boolean operation
 					0);		//copy number
 
-    solidAblator= new G4Tubs("Ablator",
+    solidAblator= new G4Tubs("SensitiveLayer",
                    0, SampleSizeXY/2, Ablatorthickness/2, 0, 360.*degree ); // name Ablator,
                    //inner radus 0, Outer radius half of SampleSizeXY,
                    //25 um thickness, start from 0, segment angle 360.
-    logicAblator= new G4LogicalVolume(solidAblator, CH, "Ablator");
+    logicAblator= new G4LogicalVolume(solidAblator, Phosphorescence, "SensitiveLayer");
     //need to set CH material
     physiAblator= new G4PVPlacement(0, G4ThreeVector(0,0,Ablatorthickness/2-SampleThickness/2),"Ablator",
                   logicAblator,
@@ -848,11 +850,11 @@ if (ConstructDetector){
                   false,
                   0);
 
-   solidCulayer= new G4Tubs("Culayer",
+   solidCulayer= new G4Tubs("Supportlayer",
                   0, SampleSizeXY/2, Culayerthickness/2, 0, 360.*degree ); // name Culayer,
                   //inner radus 0, Outer radius half of SampleSizeXY,
                   //25 um thickness, start from 0, segment angle 360.
-   logicCulayer= new G4LogicalVolume(solidCulayer, Cu, "Culayer");
+   logicCulayer= new G4LogicalVolume(solidCulayer, SupportPlastic, "Supportlayer");
    //need to set Cu material
    physiCulayer= new G4PVPlacement(0, G4ThreeVector(0,0,Ablatorthickness+Culayerthickness/2-SampleThickness/2),"Culayer",
                   logicCulayer,
@@ -860,11 +862,11 @@ if (ConstructDetector){
                false,
              0);
 
-   solidAllayer= new G4Tubs("Allayer",
+   solidAllayer= new G4Tubs("Magneticlayer",
                   0, SampleSizeXY/2, Allayerthickness/2, 0, 360.*degree ); // name Allayer,
                   //inner radus 0, Outer radius half of SampleSizeXY,
                   //25 um thickness, start from 0, segment angle 360.
-   logicAllayer= new G4LogicalVolume(solidAllayer, Al, "Allayer");
+   logicAllayer= new G4LogicalVolume(solidAllayer, Magnet, "Magneticlayer");
    physiAllayer= new G4PVPlacement(0, G4ThreeVector(0,0,Ablatorthickness+Culayerthickness+Allayerthickness/2-SampleThickness/2),"Allayer",
                   logicAllayer,
                  physiSample,

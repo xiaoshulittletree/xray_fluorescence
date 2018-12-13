@@ -55,7 +55,7 @@ XrayFluoSteppingAction::~XrayFluoSteppingAction()
 
 void XrayFluoSteppingAction::UserSteppingAction(const G4Step* aStep)
 {
-  if (aStep->GetPostStepPoint()->GetStepStatus() == fWorldBoundary)
+  if (aStep->GetPostStepPoint()->GetStepStatus() == fGeomBoundary)
   {
       XrayFluoAnalysisManager* analysis  = XrayFluoAnalysisManager::getInstance();
       analysis->analyseStepping(aStep);
@@ -64,6 +64,7 @@ void XrayFluoSteppingAction::UserSteppingAction(const G4Step* aStep)
     const
       XrayFluoMercuryDetectorConstruction* detector =
       XrayFluoMercuryDetectorConstruction::GetInstance();
+
 
     if(aStep->GetTrack()->GetNextVolume())
     {
