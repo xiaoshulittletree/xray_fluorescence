@@ -56,6 +56,10 @@
 #include "G4Element.hh"
 #include "G4MaterialTable.hh"
 #include "G4NistManager.hh"
+#include "G4FieldManager.hh"
+#include "G4AutoDelete.hh"
+
+
 
 class G4Box;
 class G4Tubs;
@@ -65,9 +69,12 @@ class G4VPhysicalVolume;
 class G4Material;
 class XrayFluoDetectorMessenger;
 class XrayFluoNistMaterials;
+class XrayFluoMagneticField;
+
 
 class G4Region;
 class G4ProductionCuts;
+
 
 //class XrayFluoSD;
 //class XrayFluoVDetectorType;
@@ -160,6 +167,8 @@ private:
   XrayFluoDetectorConstruction();
 
   static XrayFluoDetectorConstruction* instance;
+  static G4ThreadLocal XrayFluoMagneticField* fMagneticField;
+  static G4ThreadLocal G4FieldManager* fFieldMgr;
 
   XrayFluoVDetectorType* detectorType;
 

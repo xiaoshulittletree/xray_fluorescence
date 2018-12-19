@@ -1,0 +1,22 @@
+/run/initialize
+
+
+/vis/open OGL 600x600-0+0
+/vis/drawVolume
+/vis/viewer/set/style wireframe
+/vis/scene/add/trajectories smooth
+/vis/modeling/trajectories/create/drawByCharge
+
+/vis/scene/endOfEventAction accumulate
+
+/vis/viewer/set/autoRefresh true
+/vis/verbose warnings
+
+/vis/viewer/set/viewpointThetaPhi 60. 30.
+
+#/vis/viewer/zoom 2.
+/run/setCut  0.001 mm
+/run/setCutForRegion target 0.001 mm
+/gun/particle e-   
+ /gun/energy 501.2 keV 
+ /run/beamOn 10  

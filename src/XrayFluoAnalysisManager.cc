@@ -139,11 +139,8 @@ void XrayFluoAnalysisManager::book()
       man->CreateNtupleDColumn("existPosTheta");
       man->CreateNtupleDColumn("existPosPhi");
       man->CreateNtupleDColumn("existPosRho");
-<<<<<<< HEAD
       man->CreateNtupleDColumn("PrimaryMomentumTheta");
-=======
-      man->CreateNtupleDColumn("PrimaryMomentumTheta")
->>>>>>> eed3b63c2645a573042d2b948c08738b4e488c19
+
 
   //   man->CreateNtupleIColumn("processes");
   //    man->CreateNtupleIColumn("material");
@@ -162,11 +159,8 @@ void XrayFluoAnalysisManager::book()
       man->CreateNtupleDColumn("existPosTheta");
       man->CreateNtupleDColumn("existPosPhi");
       man->CreateNtupleDColumn("existPosRho");
-<<<<<<< HEAD
       man->CreateNtupleDColumn("PrimaryMomentumTheta");
-=======
-      man->CreateNtupleDColumn("PrimaryMomentumTheta")
->>>>>>> eed3b63c2645a573042d2b948c08738b4e488c19
+
 
   //   man->CreateNtupleIColumn("processes");
   //    man->CreateNtupleIColumn("material");
@@ -308,11 +302,8 @@ void XrayFluoAnalysisManager::analyseStepping(const G4Step* aStep)
       momentum = aStep->GetTrack()->GetDynamicParticle()->GetMomentum();
       particleEnergy = aStep->GetPreStepPoint()->GetKineticEnergy();
       existPos=aStep->GetPostStepPoint()->GetPosition();
-<<<<<<< HEAD
       primarymomentum = G4EventManager::GetEventManager()->GetConstCurrentEvent()->GetPrimaryVertex()->GetPrimary()->GetMomentumDirection();
-=======
-      primarymomentum = G4RunManager::GetCurrentEvent()->GetPrimaryVertex()->GetPrimary()->GetMomentumDirection()
->>>>>>> eed3b63c2645a573042d2b948c08738b4e488c19
+
       G4int part = -1 ;
       if (particleType == G4Gamma::Definition()) part =1;
       if (particleType == G4Electron::Definition()) part = 0;

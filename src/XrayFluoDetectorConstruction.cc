@@ -76,9 +76,16 @@
 #include "XrayFluoNistMaterials.hh"
 #include "G4SDManager.hh"
 
+#include "XrayFluoMagneticField.hh"
+
+#include "G4FieldManager.hh"
+#include "G4AutoDelete.hh"
+
 
 // #include "G4Region.hh"
 // #include "G4RegionStore.hh"
+G4ThreadLocal XrayFluoMagneticField* XrayFluoDetectorConstruction::fMagneticField = 0;
+G4ThreadLocal G4FieldManager* XrayFluoDetectorConstruction::fFieldMgr = 0;
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
@@ -118,14 +125,14 @@ XrayFluoDetectorConstruction::XrayFluoDetectorConstruction()
   G4cout << "PixelSizeXY(cm): "<< PixelSizeXY/cm << G4endl;
 
   ContactSizeXY     = PixelSizeXY; //std::sqrt(40) * mm; //should be the same as PixelSizeXY
-  SampleThickness = 0.21 * mm;
+  SampleThickness = 0.095 * mm;
   SampleSizeXY = 3. * mm; //need to change to 5 mm it's the diameter of the target.
   Dia1Thickness = 1. *mm;
   Dia3Thickness = 1. *mm;
   Dia1SizeXY = 3. *cm;
   Dia3SizeXY = 3. *cm;
 
-  Ablatorthickness = 140. * um;
+  Ablatorthickness = 25. * um;
   Culayerthickness = 20. * um;
   Allayerthickness = 50. * um;
 
@@ -871,8 +878,19 @@ if (ConstructDetector){
                false,
              0);
 
+   // magnetic field ----------------------------------------------------------
+   fMagneticField = new XrayFluoMagneticField();
+   fFieldMgr = new G4FieldManager();
+   fFieldMgr->SetDetectorField(fMagneticField);
+   fFieldMgr->CreateChordFinder(fMagneticField);
+   G4bool forceToAllDaughters = true;
+   logicAblator->SetFieldManager(fFieldMgr, forceToAllDaughters);
 
-     G4cout<<"begin region cut"<<G4endl;
+   // Register the field and its manager for deleting
+   G4AutoDelete::Register(fMagneticField);
+   G4AutoDelete::Register(fFieldMgr);
+
+   G4cout<<"begin region cut"<<G4endl;
 
      if(SampleRegion)
        delete SampleRegion;

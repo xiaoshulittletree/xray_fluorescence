@@ -37,6 +37,7 @@
 
 #include "XrayFluoPrimaryGeneratorAction.hh"
 #include "XrayFluoDetectorConstruction.hh"
+#include "XrayFluoMagneticField.hh"
 #include "XrayFluoPrimaryGeneratorMessenger.hh"
 #include "XrayFluoRunAction.hh"
 #include "G4Event.hh"
@@ -50,6 +51,7 @@
 #include "XrayFluoDataSet.hh"
 #include "G4PhysicalConstants.hh"
 #include "G4SystemOfUnits.hh"
+//#include "G4RandGuass.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
@@ -143,19 +145,20 @@ void XrayFluoPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 	G4double z0 = -200* um;
   G4double y0 = 0.*cm, x0 = 0.*cm;
 	G4double costheta=G4UniformRand();
-	G4double Dz=costheta;
-<<<<<<< HEAD
-	G4double Dx=std::sqrt(1-costheta*costheta);
-=======
-	G4double Dx=1-costheta**costheta;
->>>>>>> eed3b63c2645a573042d2b948c08738b4e488c19
+//G4double Dz=costheta;
+//	G4double Dx=std::sqrt(1-costheta*costheta);
+  G4double Dz=1;
+	G4double Dx=0;
 	G4double Dy=0;
-  if (rndmFlag == "on")
+	G4double R=125*um;
+	  if (rndmFlag == "on")
     {
       y0 = (XrayFluoDetector->GetDia3SizeXY())/std::sqrt(2.)*(G4UniformRand()-0.5); // it was GetSampleSizeXY(),
       x0 = (XrayFluoDetector->GetDia3SizeXY())/std::sqrt(2.)*(G4UniformRand()-0.5); // not divided by std::sqrt(2.)
     }
 
+  x0=G4RandGauss::shoot(0*um,R/sqrt(2));
+	y0=G4RandGauss::shoot(0*um,R/sqrt(2));
 	particleGun->SetParticleMomentumDirection(G4ThreeVector(Dx,Dy,Dz));
   particleGun->SetParticlePosition(G4ThreeVector(x0,y0,z0));
 
